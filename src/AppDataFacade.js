@@ -4,9 +4,11 @@ class AppDataFacade {
     this.allEntries = null;
     this.numberOfDaysInLatest = 30;
 
+    console.log("appdatafacade constructor");
     this.initData();
   }
   initData() {
+    return;
     this.addEntry({
       id: 1000,
       selectables: [{ key: "poop" }, { key: "pee" }],
@@ -78,7 +80,9 @@ class AppDataFacade {
     ];
   }
   makeDateKey(from) {
-    return new Date(from.getFullYear(), from.getMonth(), from.getDay());
+    let key = new Date(from);
+    key.setHours(0, 0, 0, 0);
+    return key.toDateString();
   }
   async getLatestEntriesByDate() {
     if (this.latestEntriesByDate === null) {

@@ -467,44 +467,11 @@ var app = (function () {
         this.allEntries = null;
         this.numberOfDaysInLatest = 30;
 
+        console.log("appdatafacade constructor");
         this.initData();
       }
       initData() {
-        this.addEntry({
-          id: 1000,
-          selectables: [{ key: "poop" }, { key: "pee" }],
-          when: new Date("2020-01-22T02:00:00")
-        });
-        this.addEntry({
-          id: 1001,
-          selectables: [{ key: "pee" }, { key: "fed" }, { key: "meds" }],
-          when: new Date("2020-01-22T04:00:00")
-        });
-        this.addEntry({
-          id: 1003,
-          selectables: [{ key: "pee" }],
-          note: "peed a few times",
-          when: new Date("2020-01-22T06:00:00")
-        });
-        this.addEntry({
-          id: 1004,
-          selectables: [],
-          note: "was playful",
-          when: new Date("2020-01-21T06:00:00")
-        });
-        this.addEntry({
-          id: 1005,
-          selectables: [{ key: "flag" }],
-          note: "this one is old",
-          when: new Date("2019-01-21T06:00:00")
-        });
-        this.addEntry({
-          id: 1006,
-          selectables: [{ key: "pee" }, { key: "flag" }],
-          note: "xmas",
-          when: new Date("2019-12-25T14:00:00")
-        });
-        console.log(this);
+        return;
       }
       async getSelectables() {
         return [
@@ -541,7 +508,9 @@ var app = (function () {
         ];
       }
       makeDateKey(from) {
-        return new Date(from.getFullYear(), from.getMonth(), from.getDay());
+        let key = new Date(from);
+        key.setHours(0, 0, 0, 0);
+        return key.toDateString();
       }
       async getLatestEntriesByDate() {
         if (this.latestEntriesByDate === null) {
@@ -1101,12 +1070,12 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
-    	child_ctx[7] = i;
+    	child_ctx[4] = list[i];
+    	child_ctx[6] = i;
     	return child_ctx;
     }
 
-    // (26:4) {#each entries as entry, i (entry.id)}
+    // (27:4) {#each entries as entry, i (entry.id)}
     function create_each_block$1(key_1, ctx) {
     	let li;
     	let t;
@@ -1115,8 +1084,8 @@ var app = (function () {
 
     	const singleentry = new SingleEntry({
     			props: {
-    				entry: /*entry*/ ctx[5],
-    				selectableMap: /*selectableMap*/ ctx[1]
+    				entry: /*entry*/ ctx[4],
+    				selectableMap: /*selectableMap*/ ctx[0]
     			},
     			$$inline: true
     		});
@@ -1128,8 +1097,8 @@ var app = (function () {
     			li = element("li");
     			create_component(singleentry.$$.fragment);
     			t = space();
-    			attr_dev(li, "class", li_class_value = css(/*i*/ ctx[7]));
-    			add_location(li, file$2, 26, 6, 625);
+    			attr_dev(li, "class", li_class_value = css(/*i*/ ctx[6]));
+    			add_location(li, file$2, 27, 6, 627);
     			this.first = li;
     		},
     		m: function mount(target, anchor) {
@@ -1140,11 +1109,11 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const singleentry_changes = {};
-    			if (dirty & /*entries*/ 4) singleentry_changes.entry = /*entry*/ ctx[5];
-    			if (dirty & /*selectableMap*/ 2) singleentry_changes.selectableMap = /*selectableMap*/ ctx[1];
+    			if (dirty & /*entries*/ 2) singleentry_changes.entry = /*entry*/ ctx[4];
+    			if (dirty & /*selectableMap*/ 1) singleentry_changes.selectableMap = /*selectableMap*/ ctx[0];
     			singleentry.$set(singleentry_changes);
 
-    			if (!current || dirty & /*entries*/ 4 && li_class_value !== (li_class_value = css(/*i*/ ctx[7]))) {
+    			if (!current || dirty & /*entries*/ 2 && li_class_value !== (li_class_value = css(/*i*/ ctx[6]))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -1167,7 +1136,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(26:4) {#each entries as entry, i (entry.id)}",
+    		source: "(27:4) {#each entries as entry, i (entry.id)}",
     		ctx
     	});
 
@@ -1183,8 +1152,8 @@ var app = (function () {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let current;
-    	let each_value = /*entries*/ ctx[2];
-    	const get_key = ctx => /*entry*/ ctx[5].id;
+    	let each_value = /*entries*/ ctx[1];
+    	const get_key = ctx => /*entry*/ ctx[4].id;
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		let child_ctx = get_each_context$1(ctx, each_value, i);
@@ -1196,7 +1165,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			strong = element("strong");
-    			t0 = text(/*headerText*/ ctx[0]);
+    			t0 = text(/*headerText*/ ctx[2]);
     			t1 = space();
     			ol = element("ol");
 
@@ -1205,10 +1174,10 @@ var app = (function () {
     			}
 
     			attr_dev(strong, "class", "underline px-1");
-    			add_location(strong, file$2, 23, 2, 513);
-    			add_location(ol, file$2, 24, 2, 569);
+    			add_location(strong, file$2, 24, 2, 515);
+    			add_location(ol, file$2, 25, 2, 571);
     			attr_dev(div, "class", "mb-2 text-xs");
-    			add_location(div, file$2, 22, 0, 483);
+    			add_location(div, file$2, 23, 0, 485);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1227,8 +1196,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*headerText*/ 1) set_data_dev(t0, /*headerText*/ ctx[0]);
-    			const each_value = /*entries*/ ctx[2];
+    			if (!current || dirty & /*headerText*/ 4) set_data_dev(t0, /*headerText*/ ctx[2]);
+    			const each_value = /*entries*/ ctx[1];
     			group_outros();
     			each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, ol, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
     			check_outros();
@@ -1281,25 +1250,25 @@ var app = (function () {
 
     function instance$2($$self, $$props, $$invalidate) {
     	let { selectableMap = {} } = $$props;
-    	let { headerText = "" } = $$props;
+    	let headerText = "";
     	let { entries = [] } = $$props;
     	let { date } = $$props;
 
     	if (date && !headerText) {
-    		headerText = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`;
+    		headerText = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    		debugger;
     	}
 
-    	const writable_props = ["selectableMap", "headerText", "entries", "date"];
+    	const writable_props = ["selectableMap", "entries", "date"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<EntriesByDate> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$set = $$props => {
-    		if ("selectableMap" in $$props) $$invalidate(1, selectableMap = $$props.selectableMap);
-    		if ("headerText" in $$props) $$invalidate(0, headerText = $$props.headerText);
-    		if ("entries" in $$props) $$invalidate(2, entries = $$props.entries);
-    		if ("date" in $$props) $$invalidate(4, date = $$props.date);
+    		if ("selectableMap" in $$props) $$invalidate(0, selectableMap = $$props.selectableMap);
+    		if ("entries" in $$props) $$invalidate(1, entries = $$props.entries);
+    		if ("date" in $$props) $$invalidate(3, date = $$props.date);
     	};
 
     	$$self.$capture_state = () => {
@@ -1307,26 +1276,19 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ("selectableMap" in $$props) $$invalidate(1, selectableMap = $$props.selectableMap);
-    		if ("headerText" in $$props) $$invalidate(0, headerText = $$props.headerText);
-    		if ("entries" in $$props) $$invalidate(2, entries = $$props.entries);
-    		if ("date" in $$props) $$invalidate(4, date = $$props.date);
+    		if ("selectableMap" in $$props) $$invalidate(0, selectableMap = $$props.selectableMap);
+    		if ("headerText" in $$props) $$invalidate(2, headerText = $$props.headerText);
+    		if ("entries" in $$props) $$invalidate(1, entries = $$props.entries);
+    		if ("date" in $$props) $$invalidate(3, date = $$props.date);
     	};
 
-    	return [headerText, selectableMap, entries, css, date];
+    	return [selectableMap, entries, headerText, date];
     }
 
     class EntriesByDate extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-
-    		init(this, options, instance$2, create_fragment$3, safe_not_equal, {
-    			selectableMap: 1,
-    			headerText: 0,
-    			entries: 2,
-    			date: 4,
-    			css: 3
-    		});
+    		init(this, options, instance$2, create_fragment$3, safe_not_equal, { selectableMap: 0, entries: 1, date: 3 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1338,7 +1300,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*date*/ ctx[4] === undefined && !("date" in props)) {
+    		if (/*date*/ ctx[3] === undefined && !("date" in props)) {
     			console.warn("<EntriesByDate> was created without expected prop 'date'");
     		}
     	}
@@ -1348,14 +1310,6 @@ var app = (function () {
     	}
 
     	set selectableMap(value) {
-    		throw new Error("<EntriesByDate>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get headerText() {
-    		throw new Error("<EntriesByDate>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set headerText(value) {
     		throw new Error("<EntriesByDate>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -1374,37 +1328,23 @@ var app = (function () {
     	set date(value) {
     		throw new Error("<EntriesByDate>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
-
-    	get css() {
-    		return css;
-    	}
-
-    	set css(value) {
-    		throw new Error("<EntriesByDate>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
     }
 
-    /* src\App.svelte generated by Svelte v3.17.2 */
+    /* src\EntryForm.svelte generated by Svelte v3.17.2 */
 
     const { Object: Object_1, console: console_1 } = globals;
-    const file$3 = "src\\App.svelte";
+    const file$3 = "src\\EntryForm.svelte";
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
+    	child_ctx[7] = list[i];
+    	child_ctx[8] = list;
+    	child_ctx[9] = i;
     	return child_ctx;
     }
 
-    function get_each_context_1(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[14] = list[i];
-    	child_ctx[15] = list;
-    	child_ctx[16] = i;
-    	return child_ctx;
-    }
-
-    // (77:8) {#each selectables as item (item.key)}
-    function create_each_block_1(key_1, ctx) {
+    // (50:4) {#each selectables as item (item.key)}
+    function create_each_block$2(key_1, ctx) {
     	let label;
     	let t0;
     	let div;
@@ -1416,12 +1356,12 @@ var app = (function () {
     	let dispose;
 
     	const selectableicon = new SelectableIcon({
-    			props: { selectable: /*item*/ ctx[14] },
+    			props: { selectable: /*item*/ ctx[7] },
     			$$inline: true
     		});
 
     	function input_change_handler() {
-    		/*input_change_handler*/ ctx[9].call(input, /*item*/ ctx[14]);
+    		/*input_change_handler*/ ctx[5].call(input, /*item*/ ctx[7]);
     	}
 
     	const block = {
@@ -1435,13 +1375,13 @@ var app = (function () {
     			input = element("input");
     			t1 = space();
     			attr_dev(input, "type", "checkbox");
-    			attr_dev(input, "name", input_name_value = /*item*/ ctx[14].key);
-    			attr_dev(input, "id", input_id_value = /*item*/ ctx[14].key);
-    			add_location(input, file$3, 80, 14, 2477);
+    			attr_dev(input, "name", input_name_value = /*item*/ ctx[7].key);
+    			attr_dev(input, "id", input_id_value = /*item*/ ctx[7].key);
+    			add_location(input, file$3, 53, 10, 1582);
     			attr_dev(div, "class", "text-center");
-    			add_location(div, file$3, 79, 12, 2437);
+    			add_location(div, file$3, 52, 8, 1545);
     			attr_dev(label, "class", "cursor-pointer text-center inline-block text-2xl px-2");
-    			add_location(label, file$3, 77, 10, 2306);
+    			add_location(label, file$3, 50, 6, 1420);
     			this.first = label;
     		},
     		m: function mount(target, anchor) {
@@ -1450,7 +1390,7 @@ var app = (function () {
     			append_dev(label, t0);
     			append_dev(label, div);
     			append_dev(div, input);
-    			input.checked = /*item*/ ctx[14].checked;
+    			input.checked = /*item*/ ctx[7].checked;
     			append_dev(label, t1);
     			current = true;
     			dispose = listen_dev(input, "change", input_change_handler);
@@ -1458,19 +1398,19 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const selectableicon_changes = {};
-    			if (dirty & /*selectables*/ 1) selectableicon_changes.selectable = /*item*/ ctx[14];
+    			if (dirty & /*selectables*/ 1) selectableicon_changes.selectable = /*item*/ ctx[7];
     			selectableicon.$set(selectableicon_changes);
 
-    			if (!current || dirty & /*selectables*/ 1 && input_name_value !== (input_name_value = /*item*/ ctx[14].key)) {
+    			if (!current || dirty & /*selectables*/ 1 && input_name_value !== (input_name_value = /*item*/ ctx[7].key)) {
     				attr_dev(input, "name", input_name_value);
     			}
 
-    			if (!current || dirty & /*selectables*/ 1 && input_id_value !== (input_id_value = /*item*/ ctx[14].key)) {
+    			if (!current || dirty & /*selectables*/ 1 && input_id_value !== (input_id_value = /*item*/ ctx[7].key)) {
     				attr_dev(input, "id", input_id_value);
     			}
 
     			if (dirty & /*selectables*/ 1) {
-    				input.checked = /*item*/ ctx[14].checked;
+    				input.checked = /*item*/ ctx[7].checked;
     			}
     		},
     		i: function intro(local) {
@@ -1491,73 +1431,9 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_1.name,
-    		type: "each",
-    		source: "(77:8) {#each selectables as item (item.key)}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (113:6) {#each latestEntriesByDate as group (group.id)}
-    function create_each_block$2(key_1, ctx) {
-    	let li;
-    	let t;
-    	let current;
-
-    	const entriesbydate = new EntriesByDate({
-    			props: {
-    				entries: /*group*/ ctx[11].entries,
-    				date: /*group*/ ctx[11].date,
-    				selectableMap: /*defaultSelectables*/ ctx[4]
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		key: key_1,
-    		first: null,
-    		c: function create() {
-    			li = element("li");
-    			create_component(entriesbydate.$$.fragment);
-    			t = space();
-    			add_location(li, file$3, 113, 8, 3349);
-    			this.first = li;
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, li, anchor);
-    			mount_component(entriesbydate, li, null);
-    			append_dev(li, t);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const entriesbydate_changes = {};
-    			if (dirty & /*latestEntriesByDate*/ 4) entriesbydate_changes.entries = /*group*/ ctx[11].entries;
-    			if (dirty & /*latestEntriesByDate*/ 4) entriesbydate_changes.date = /*group*/ ctx[11].date;
-    			if (dirty & /*defaultSelectables*/ 16) entriesbydate_changes.selectableMap = /*defaultSelectables*/ ctx[4];
-    			entriesbydate.$set(entriesbydate_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(entriesbydate.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(entriesbydate.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(li);
-    			destroy_component(entriesbydate);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(113:6) {#each latestEntriesByDate as group (group.id)}",
+    		source: "(50:4) {#each selectables as item (item.key)}",
     		ctx
     	});
 
@@ -1565,167 +1441,106 @@ var app = (function () {
     }
 
     function create_fragment$4(ctx) {
-    	let t0;
-    	let main;
-    	let section0;
     	let form;
     	let div0;
-    	let each_blocks_1 = [];
-    	let each0_lookup = new Map();
-    	let t1;
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
+    	let t0;
     	let label;
     	let span;
-    	let t3;
+    	let t2;
     	let textarea;
-    	let t4;
+    	let t3;
     	let div1;
     	let button;
-    	let t6;
-    	let section1;
-    	let ol;
-    	let each_blocks = [];
-    	let each1_lookup = new Map();
     	let current;
     	let dispose;
-    	const tailwindcss = new Tailwindcss({ $$inline: true });
-    	let each_value_1 = /*selectables*/ ctx[0];
-    	const get_key = ctx => /*item*/ ctx[14].key;
-
-    	for (let i = 0; i < each_value_1.length; i += 1) {
-    		let child_ctx = get_each_context_1(ctx, each_value_1, i);
-    		let key = get_key(child_ctx);
-    		each0_lookup.set(key, each_blocks_1[i] = create_each_block_1(key, child_ctx));
-    	}
-
-    	let each_value = /*latestEntriesByDate*/ ctx[2];
-    	const get_key_1 = ctx => /*group*/ ctx[11].id;
+    	let each_value = /*selectables*/ ctx[0];
+    	const get_key = ctx => /*item*/ ctx[7].key;
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		let child_ctx = get_each_context$2(ctx, each_value, i);
-    		let key = get_key_1(child_ctx);
-    		each1_lookup.set(key, each_blocks[i] = create_each_block$2(key, child_ctx));
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$2(key, child_ctx));
     	}
 
     	const block = {
     		c: function create() {
-    			create_component(tailwindcss.$$.fragment);
-    			t0 = space();
-    			main = element("main");
-    			section0 = element("section");
     			form = element("form");
     			div0 = element("div");
-
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].c();
-    			}
-
-    			t1 = space();
-    			label = element("label");
-    			span = element("span");
-    			span.textContent = "Note:";
-    			t3 = space();
-    			textarea = element("textarea");
-    			t4 = space();
-    			div1 = element("div");
-    			button = element("button");
-    			button.textContent = "save";
-    			t6 = space();
-    			section1 = element("section");
-    			ol = element("ol");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+    			t0 = space();
+    			label = element("label");
+    			span = element("span");
+    			span.textContent = "Note:";
+    			t2 = space();
+    			textarea = element("textarea");
+    			t3 = space();
+    			div1 = element("div");
+    			button = element("button");
+    			button.textContent = "save";
     			attr_dev(div0, "class", "selectables");
-    			add_location(div0, file$3, 75, 6, 2223);
+    			add_location(div0, file$3, 48, 2, 1343);
     			attr_dev(span, "class", "hidden");
-    			add_location(span, file$3, 91, 8, 2728);
+    			add_location(span, file$3, 64, 4, 1804);
     			attr_dev(textarea, "id", "note");
     			attr_dev(textarea, "name", "note");
     			attr_dev(textarea, "placeholder", "enter a note, if you want");
     			attr_dev(textarea, "class", "text-gray-800 px-2 text-sm");
-    			add_location(textarea, file$3, 92, 8, 2770);
+    			add_location(textarea, file$3, 65, 4, 1843);
     			attr_dev(label, "class", "note");
-    			add_location(label, file$3, 90, 6, 2699);
+    			add_location(label, file$3, 63, 2, 1778);
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", "bg-purple-600 hover:bg-purple-400 text-white font-bold py-1\n          px-4 rounded my-2");
-    			add_location(button, file$3, 100, 8, 2983);
-    			add_location(div1, file$3, 99, 6, 2969);
+    			attr_dev(button, "class", "bg-purple-600 hover:bg-purple-400 text-white font-bold py-1 px-4\r\n      rounded my-2");
+    			add_location(button, file$3, 73, 4, 2032);
+    			add_location(div1, file$3, 72, 2, 2021);
     			attr_dev(form, "name", "updog");
     			attr_dev(form, "method", "post");
-    			add_location(form, file$3, 74, 4, 2183);
-    			attr_dev(section0, "id", "log-form");
-    			add_location(section0, file$3, 73, 2, 2155);
-    			add_location(ol, file$3, 111, 4, 3282);
-    			attr_dev(section1, "id", "history");
-    			attr_dev(section1, "class", " text-sm text-left ");
-    			add_location(section1, file$3, 110, 2, 3227);
-    			attr_dev(main, "class", "bg-gray-800 text-white text-center mx-auto py-2");
-    			set_style(main, "width", "280px");
-    			add_location(main, file$3, 70, 0, 2066);
+    			add_location(form, file$3, 47, 0, 1306);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			mount_component(tailwindcss, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, main, anchor);
-    			append_dev(main, section0);
-    			append_dev(section0, form);
+    			insert_dev(target, form, anchor);
     			append_dev(form, div0);
 
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(div0, null);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
     			}
 
-    			append_dev(form, t1);
+    			append_dev(form, t0);
     			append_dev(form, label);
     			append_dev(label, span);
-    			append_dev(label, t3);
+    			append_dev(label, t2);
     			append_dev(label, textarea);
     			set_input_value(textarea, /*note*/ ctx[1]);
-    			append_dev(form, t4);
+    			append_dev(form, t3);
     			append_dev(form, div1);
     			append_dev(div1, button);
-    			append_dev(main, t6);
-    			append_dev(main, section1);
-    			append_dev(section1, ol);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(ol, null);
-    			}
-
     			current = true;
 
     			dispose = [
-    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[10]),
-    				listen_dev(button, "click", /*handleSave*/ ctx[3], false, false, false)
+    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[6]),
+    				listen_dev(button, "click", /*handleSave*/ ctx[2], false, false, false)
     			];
     		},
     		p: function update(ctx, [dirty]) {
-    			const each_value_1 = /*selectables*/ ctx[0];
+    			const each_value = /*selectables*/ ctx[0];
     			group_outros();
-    			each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_1, each0_lookup, div0, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
+    			each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, div0, outro_and_destroy_block, create_each_block$2, null, get_each_context$2);
     			check_outros();
 
     			if (dirty & /*note*/ 2) {
     				set_input_value(textarea, /*note*/ ctx[1]);
     			}
-
-    			const each_value = /*latestEntriesByDate*/ ctx[2];
-    			group_outros();
-    			each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, ol, outro_and_destroy_block, create_each_block$2, null, get_each_context$2);
-    			check_outros();
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(tailwindcss.$$.fragment, local);
-
-    			for (let i = 0; i < each_value_1.length; i += 1) {
-    				transition_in(each_blocks_1[i]);
-    			}
 
     			for (let i = 0; i < each_value.length; i += 1) {
     				transition_in(each_blocks[i]);
@@ -1734,12 +1549,6 @@ var app = (function () {
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(tailwindcss.$$.fragment, local);
-
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				transition_out(each_blocks_1[i]);
-    			}
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
     			}
@@ -1747,13 +1556,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(tailwindcss, detaching);
-    			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(main);
-
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].d();
-    			}
+    			if (detaching) detach_dev(form);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].d();
@@ -1774,71 +1577,61 @@ var app = (function () {
     	return block;
     }
 
-    function adaptSelectable(i) {
-    	return Object.assign({}, i, { checked: false });
-    }
-
     function instance$3($$self, $$props, $$invalidate) {
-    	let data = new AppDataFacade();
-    	let defaultSelectables;
     	let { selectables = [] } = $$props;
     	let { note = "" } = $$props;
-    	let { latestEntriesByDate = [] } = $$props;
 
-    	async function init() {
-    		// copy the source data version, slap on a "checked attribute" for the view
-    		// keep those clean and make a copy for working data
-    		$$invalidate(4, defaultSelectables = (await data.getSelectables()).map(adaptSelectable));
+    	let { onEntryAdded = function () {
+    		
+    	} } = $$props;
 
-    		$$invalidate(0, selectables = defaultSelectables.map(adaptSelectable));
-    		let latestAsObj = await data.getLatestEntriesByDate();
-    		let latestArray = [];
-
-    		// transform the object into an array, then maybe sort it?
-    		for (let key in latestAsObj) {
-    			latestArray.push(latestAsObj[key]);
-    		}
-
-    		$$invalidate(2, latestEntriesByDate = latestArray);
-    		console.log("init.latestEntriesByDate", latestEntriesByDate);
-    	}
-
-    	async function resetForm() {
+    	function resetForm() {
     		$$invalidate(1, note = "");
 
     		// todo: this doesn't seem to be resetting the checked status in the form...
-    		$$invalidate(0, selectables = defaultSelectables.map(Object.assign));
+    		$$invalidate(0, selectables = selectables.map(i => Object.assign({}, i, { checked: false })));
     	}
 
     	async function handleSave(event) {
+    		console.log("handleSave", arguments);
     		event.preventDefault();
     		event.stopImmediatePropagation();
     		var newEntry = {};
     		newEntry.id = new Date(); // todo make this a real id?
+    		let checked = selectables.filter(i => i.checked);
 
-    		newEntry.selectables = selectables.filter(i => i.checked).map(i => {
-    			i.key;
-    		});
+    		if (checked && checked.length > 0) {
+    			let chosen = [];
+
+    			for (let i = 0; i < checked.length; i++) {
+    				let keyVersion = {};
+    				keyVersion.key = checked[i].key;
+    				chosen.push(keyVersion);
+    			}
+
+    			newEntry.selectables = chosen;
+    		} else {
+    			newEntry.selectables = [];
+    		}
 
     		newEntry.note = note;
 
     		// todo put this in the form?
     		newEntry.when = new Date();
 
-    		data.addEntry(newEntry);
-    		onEntryAdded();
+    		if (newEntry.selectables.count === 0 && note.length === 0) {
+    			// don't save an empty entry
+    			return;
+    		}
+
+    		onEntryAdded(newEntry);
     		resetForm();
     	}
 
-    	async function onEntryAdded(entry) {
-    		await init();
-    	}
-
-    	init();
-    	const writable_props = ["selectables", "note", "latestEntriesByDate"];
+    	const writable_props = ["selectables", "note", "onEntryAdded"];
 
     	Object_1.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<App> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<EntryForm> was created with unknown prop '${key}'`);
     	});
 
     	function input_change_handler(item) {
@@ -1854,7 +1647,333 @@ var app = (function () {
     	$$self.$set = $$props => {
     		if ("selectables" in $$props) $$invalidate(0, selectables = $$props.selectables);
     		if ("note" in $$props) $$invalidate(1, note = $$props.note);
-    		if ("latestEntriesByDate" in $$props) $$invalidate(2, latestEntriesByDate = $$props.latestEntriesByDate);
+    		if ("onEntryAdded" in $$props) $$invalidate(3, onEntryAdded = $$props.onEntryAdded);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return { selectables, note, onEntryAdded };
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ("selectables" in $$props) $$invalidate(0, selectables = $$props.selectables);
+    		if ("note" in $$props) $$invalidate(1, note = $$props.note);
+    		if ("onEntryAdded" in $$props) $$invalidate(3, onEntryAdded = $$props.onEntryAdded);
+    	};
+
+    	return [
+    		selectables,
+    		note,
+    		handleSave,
+    		onEntryAdded,
+    		resetForm,
+    		input_change_handler,
+    		textarea_input_handler
+    	];
+    }
+
+    class EntryForm extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$3, create_fragment$4, safe_not_equal, {
+    			selectables: 0,
+    			note: 1,
+    			onEntryAdded: 3,
+    			resetForm: 4
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "EntryForm",
+    			options,
+    			id: create_fragment$4.name
+    		});
+    	}
+
+    	get selectables() {
+    		throw new Error("<EntryForm>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set selectables(value) {
+    		throw new Error("<EntryForm>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get note() {
+    		throw new Error("<EntryForm>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set note(value) {
+    		throw new Error("<EntryForm>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get onEntryAdded() {
+    		throw new Error("<EntryForm>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set onEntryAdded(value) {
+    		throw new Error("<EntryForm>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get resetForm() {
+    		return this.$$.ctx[4];
+    	}
+
+    	set resetForm(value) {
+    		throw new Error("<EntryForm>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\App.svelte generated by Svelte v3.17.2 */
+
+    const { Object: Object_1$1, console: console_1$1 } = globals;
+    const file$4 = "src\\App.svelte";
+
+    function get_each_context$3(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[6] = list[i];
+    	return child_ctx;
+    }
+
+    // (62:6) {#each latestEntriesByDate as group (group.id)}
+    function create_each_block$3(key_1, ctx) {
+    	let li;
+    	let t;
+    	let current;
+
+    	const entriesbydate = new EntriesByDate({
+    			props: {
+    				entries: /*group*/ ctx[6].entries,
+    				date: /*group*/ ctx[6].date,
+    				selectableMap: /*defaultSelectables*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		key: key_1,
+    		first: null,
+    		c: function create() {
+    			li = element("li");
+    			create_component(entriesbydate.$$.fragment);
+    			t = space();
+    			add_location(li, file$4, 62, 8, 2005);
+    			this.first = li;
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			mount_component(entriesbydate, li, null);
+    			append_dev(li, t);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const entriesbydate_changes = {};
+    			if (dirty & /*latestEntriesByDate*/ 1) entriesbydate_changes.entries = /*group*/ ctx[6].entries;
+    			if (dirty & /*latestEntriesByDate*/ 1) entriesbydate_changes.date = /*group*/ ctx[6].date;
+    			if (dirty & /*defaultSelectables*/ 2) entriesbydate_changes.selectableMap = /*defaultSelectables*/ ctx[1];
+    			entriesbydate.$set(entriesbydate_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(entriesbydate.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(entriesbydate.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(li);
+    			destroy_component(entriesbydate);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$3.name,
+    		type: "each",
+    		source: "(62:6) {#each latestEntriesByDate as group (group.id)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$5(ctx) {
+    	let t0;
+    	let main;
+    	let section0;
+    	let t1;
+    	let section1;
+    	let ol;
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
+    	let current;
+    	const tailwindcss = new Tailwindcss({ $$inline: true });
+
+    	const entryform = new EntryForm({
+    			props: {
+    				selectables: /*selectables*/ ctx[2],
+    				onEntryAdded: /*onEntryAdded*/ ctx[3]
+    			},
+    			$$inline: true
+    		});
+
+    	let each_value = /*latestEntriesByDate*/ ctx[0];
+    	const get_key = ctx => /*group*/ ctx[6].id;
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		let child_ctx = get_each_context$3(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$3(key, child_ctx));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			create_component(tailwindcss.$$.fragment);
+    			t0 = space();
+    			main = element("main");
+    			section0 = element("section");
+    			create_component(entryform.$$.fragment);
+    			t1 = space();
+    			section1 = element("section");
+    			ol = element("ol");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(section0, "id", "log-form");
+    			add_location(section0, file$4, 56, 2, 1797);
+    			add_location(ol, file$4, 60, 4, 1938);
+    			attr_dev(section1, "id", "history");
+    			attr_dev(section1, "class", " text-sm text-left ");
+    			add_location(section1, file$4, 59, 2, 1883);
+    			attr_dev(main, "class", "bg-gray-800 text-white text-center mx-auto py-2");
+    			set_style(main, "width", "280px");
+    			add_location(main, file$4, 53, 0, 1708);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(tailwindcss, target, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, section0);
+    			mount_component(entryform, section0, null);
+    			append_dev(main, t1);
+    			append_dev(main, section1);
+    			append_dev(section1, ol);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(ol, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const entryform_changes = {};
+    			if (dirty & /*selectables*/ 4) entryform_changes.selectables = /*selectables*/ ctx[2];
+    			entryform.$set(entryform_changes);
+    			const each_value = /*latestEntriesByDate*/ ctx[0];
+    			group_outros();
+    			each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, ol, outro_and_destroy_block, create_each_block$3, null, get_each_context$3);
+    			check_outros();
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(tailwindcss.$$.fragment, local);
+    			transition_in(entryform.$$.fragment, local);
+
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(tailwindcss.$$.fragment, local);
+    			transition_out(entryform.$$.fragment, local);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(tailwindcss, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(main);
+    			destroy_component(entryform);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d();
+    			}
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$5.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function adaptSelectable(i) {
+    	return Object.assign({}, i, { checked: false });
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	let data = new AppDataFacade();
+    	let defaultSelectables;
+    	let selectables = [];
+    	let { latestEntriesByDate = [] } = $$props;
+
+    	async function init() {
+    		// copy the source data version, slap on a "checked attribute" for the view
+    		// keep those clean and make a copy for working data
+    		if (!defaultSelectables || defaultSelectables.length === 0) {
+    			$$invalidate(1, defaultSelectables = (await data.getSelectables()).map(adaptSelectable));
+    		}
+
+    		if (!selectables || selectables.length === 0) {
+    			$$invalidate(2, selectables = defaultSelectables.map(adaptSelectable));
+    		}
+
+    		let latestAsObj = await data.getLatestEntriesByDate();
+    		let latestArray = [];
+
+    		// transform the object into an array, then maybe sort it?
+    		for (let key in latestAsObj) {
+    			latestArray.push(latestAsObj[key]);
+    		}
+
+    		latestArray.sort((a, b) => b.date - a.date);
+    		$$invalidate(0, latestEntriesByDate = latestArray);
+    		console.log("init.latestEntriesByDate", latestEntriesByDate);
+    	}
+
+    	async function onEntryAdded(newEntry) {
+    		console.log("onEntryAdded", newEntry);
+    		await data.addEntry(newEntry);
+    		await init();
+    	}
+
+    	console.log("what", new Date());
+    	init();
+    	const writable_props = ["latestEntriesByDate"];
+
+    	Object_1$1.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<App> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$set = $$props => {
+    		if ("latestEntriesByDate" in $$props) $$invalidate(0, latestEntriesByDate = $$props.latestEntriesByDate);
     	};
 
     	$$self.$capture_state = () => {
@@ -1862,68 +1981,31 @@ var app = (function () {
     			data,
     			defaultSelectables,
     			selectables,
-    			note,
     			latestEntriesByDate
     		};
     	};
 
     	$$self.$inject_state = $$props => {
     		if ("data" in $$props) data = $$props.data;
-    		if ("defaultSelectables" in $$props) $$invalidate(4, defaultSelectables = $$props.defaultSelectables);
-    		if ("selectables" in $$props) $$invalidate(0, selectables = $$props.selectables);
-    		if ("note" in $$props) $$invalidate(1, note = $$props.note);
-    		if ("latestEntriesByDate" in $$props) $$invalidate(2, latestEntriesByDate = $$props.latestEntriesByDate);
+    		if ("defaultSelectables" in $$props) $$invalidate(1, defaultSelectables = $$props.defaultSelectables);
+    		if ("selectables" in $$props) $$invalidate(2, selectables = $$props.selectables);
+    		if ("latestEntriesByDate" in $$props) $$invalidate(0, latestEntriesByDate = $$props.latestEntriesByDate);
     	};
 
-    	return [
-    		selectables,
-    		note,
-    		latestEntriesByDate,
-    		handleSave,
-    		defaultSelectables,
-    		resetForm,
-    		data,
-    		init,
-    		onEntryAdded,
-    		input_change_handler,
-    		textarea_input_handler
-    	];
+    	return [latestEntriesByDate, defaultSelectables, selectables, onEntryAdded];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-
-    		init(this, options, instance$3, create_fragment$4, safe_not_equal, {
-    			selectables: 0,
-    			note: 1,
-    			latestEntriesByDate: 2,
-    			resetForm: 5,
-    			handleSave: 3
-    		});
+    		init(this, options, instance$4, create_fragment$5, safe_not_equal, { latestEntriesByDate: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$4.name
+    			id: create_fragment$5.name
     		});
-    	}
-
-    	get selectables() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set selectables(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get note() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set note(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get latestEntriesByDate() {
@@ -1931,22 +2013,6 @@ var app = (function () {
     	}
 
     	set latestEntriesByDate(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get resetForm() {
-    		return this.$$.ctx[5];
-    	}
-
-    	set resetForm(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get handleSave() {
-    		return this.$$.ctx[3];
-    	}
-
-    	set handleSave(value) {
     		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }

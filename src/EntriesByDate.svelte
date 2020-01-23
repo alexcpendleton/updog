@@ -3,15 +3,16 @@
   //export let group = {};
   export let selectableMap = {};
 
-  export let headerText = "";
+  let headerText = "";
   export let entries = [];
   export let date;
 
   if (date && !headerText) {
     headerText = `${date.getFullYear()}-${date.getMonth() +
-      1}-${date.getDay()}`;
+      1}-${date.getDate()}`;
+    debugger;
   }
-  export function css(i) {
+  function css(i) {
     let bg = "";
     if (i % 2 == 0) {
       bg = "bg-gray-700";

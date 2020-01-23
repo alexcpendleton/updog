@@ -1,5 +1,4 @@
 <script>
-  import SingleEntry from "./SingleEntry.svelte";
   import SelectableIcon from "./SelectableIcon.svelte";
   export let entry;
   export let selectableMap;
@@ -22,12 +21,12 @@
   export let time = toTime();
 </script>
 
-<div class="single-entry">
-  <strong class="time">{time}</strong>
+<div class="single-entry text-xs">
+  <strong class="time inline">{time}</strong>
   {#if usedSelectables}
-    <ul class="selectables-used">
+    <ul class="inline">
       {#each usedSelectables as item (item.key)}
-        <li>
+        <li class="inline">
           <SelectableIcon selectable={item} />
         </li>
       {/each}

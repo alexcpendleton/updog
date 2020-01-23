@@ -1,4 +1,5 @@
 <script>
+  import Tailwindcss from "./Tailwindcss.svelte";
   import AppDataFacade from "./AppDataFacade.js";
   import EntriesByDate from "./EntriesByDate.svelte";
   import SelectableIcon from "./SelectableIcon.svelte";
@@ -61,54 +62,52 @@
   init();
 </script>
 
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
+<style type="text/css">
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
 </style>
 
-<main>
+<Tailwindcss />
+<main
+  class="bg-gray-800 text-white text-center mx-auto py-2"
+  style="width:280px">
   <section id="log-form">
     <form name="updog" method="post">
       <div class="selectables">
         {#each selectables as item (item.key)}
-          <label class="selectable-target">
-            <input
-              type="checkbox"
-              name={item.key}
-              id={item.key}
-              bind:checked={item.checked} />
+          <label class="cursor-pointer text-center inline-block text-2xl px-2">
             <SelectableIcon selectable={item} />
+            <div class="text-center">
+              <input
+                type="checkbox"
+                name={item.key}
+                id={item.key}
+                bind:checked={item.checked} />
+            </div>
           </label>
         {/each}
       </div>
 
       <label class="note">
-        Note:
-        <textarea id="note" name="note" bind:value={note} />
+        <span class="hidden">Note:</span>
+        <textarea
+          id="note"
+          name="note"
+          bind:value={note}
+          placeholder="enter a note, if you want"
+          class="text-gray-800 px-2 text-sm" />
       </label>
       <div>
-        <button type="button" on:click={handleSave}>save</button>
+        <button
+          type="button"
+          on:click={handleSave}
+          class="bg-purple-600 hover:bg-purple-400 text-white font-bold py-1
+          px-4 rounded my-2">
+          save
+        </button>
       </div>
     </form>
   </section>
-  <section id="history">
+  <section id="history" class=" text-sm text-left ">
     <ol>
       {#each latestEntriesByDate as group (group.id)}
         <li>

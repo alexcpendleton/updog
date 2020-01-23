@@ -37,7 +37,6 @@
   }
 
   async function onEntryAdded(newEntry) {
-    console.log("onEntryAdded", newEntry);
     await data.addEntry(newEntry);
     await init();
   }
@@ -50,9 +49,7 @@
 </style>
 
 <Tailwindcss />
-<main
-  class="bg-gray-800 text-white text-center mx-auto py-2"
-  style="width:280px">
+<main class="mx-auto" style="width:280px">
   <section id="log-form">
     <EntryForm {selectables} {onEntryAdded} />
   </section>

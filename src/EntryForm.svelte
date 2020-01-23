@@ -43,14 +43,35 @@
     onEntryAdded(newEntry);
     resetForm();
   }
+  function amendCss(item, i) {
+    let corner = "";
+    if (i === 0) {
+      corner = "rounded-l";
+    } else if (i === selectables.length - 1) {
+      corner = "rounded-r";
+    } else {
+      corner = " border-l-0 ";
+    }
+    let checked = "";
+    if (item.checked) {
+      checked = " bg-purple-500 ";
+    }
+    return `${corner} ${checked}`;
+  }
+  function inlineStyle(item, i) {
+    return "width: 50px; height: 50px; line-height: 42px;";
+  }
 </script>
 
 <form name="updog" method="post">
-  <div class="selectables">
-    {#each selectables as item (item.key)}
-      <label class="cursor-pointer text-center inline-block text-2xl px-2">
+  <div class="selectables inline-flex my-2">
+    {#each selectables as item, i (item.key)}
+      <label
+        class="cursor-pointer text-center inline-block text-2xl px-2
+        hover:bg-purple-500 border border-purple-400 {amendCss(item, i)}"
+        style={inlineStyle(item, i)}>
         <SelectableIcon selectable={item} />
-        <div class="text-center">
+        <div class="text-center hidden">
           <input
             type="checkbox"
             name={item.key}

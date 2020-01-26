@@ -8,7 +8,6 @@ class AppDataFacade {
     this.initData();
   }
   initData() {
-    return;
     this.addEntry({
       id: 1000,
       selectables: [{ key: "poop" }, { key: "pee" }],

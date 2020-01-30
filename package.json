@@ -23,6 +23,9 @@
   },
   "dependencies": {
     "hoodie": "^28.2.10",
+    "pouchdb-browser": "^7.1.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
     "sirv-cli": "^0.4.4"
   }
 }

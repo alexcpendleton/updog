@@ -18,7 +18,7 @@
     event.stopImmediatePropagation();
 
     var newEntry = {};
-    newEntry.id = new Date(); // todo make this a real id?
+
     let checked = selectables.filter(i => i.checked);
     if (checked && checked.length > 0) {
       let chosen = [];

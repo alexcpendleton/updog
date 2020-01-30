@@ -4,8 +4,8 @@
   import EntriesByDate from "./EntriesByDate.svelte";
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
-
-  let data = new AppDataFacade();
+  //import PouchDbStore from "./PouchDbStore.js";
+  //let data = new AppDataFacade({ store: new PouchDbStore() });
   function adaptSelectable(i) {
     return Object.assign({}, i, { checked: false });
   }
@@ -33,14 +33,12 @@
     }
     latestArray.sort((a, b) => b.date - a.date);
     latestEntriesByDate = latestArray;
-    console.log("init.latestEntriesByDate", latestEntriesByDate);
   }
 
   async function onEntryAdded(newEntry) {
     await data.addEntry(newEntry);
     await init();
   }
-  console.log("what", new Date());
   init();
 </script>
 

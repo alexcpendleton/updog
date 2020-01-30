@@ -1,48 +1,9 @@
 class AppDataFacade {
-  constructor() {
+  constructor({ store }) {
     this.latestEntriesByDate = null;
     this.allEntries = null;
     this.numberOfDaysInLatest = 30;
-
-    console.log("appdatafacade constructor");
-    this.initData();
-  }
-  initData() {
-    this.addEntry({
-      id: 1000,
-      selectables: [{ key: "poop" }, { key: "pee" }],
-      when: new Date("2020-01-22T02:00:00")
-    });
-    this.addEntry({
-      id: 1001,
-      selectables: [{ key: "pee" }, { key: "fed" }, { key: "meds" }],
-      when: new Date("2020-01-22T04:00:00")
-    });
-    this.addEntry({
-      id: 1003,
-      selectables: [{ key: "pee" }],
-      note: "peed a few times",
-      when: new Date("2020-01-22T06:00:00")
-    });
-    this.addEntry({
-      id: 1004,
-      selectables: [],
-      note: "was playful",
-      when: new Date("2020-01-21T06:00:00")
-    });
-    this.addEntry({
-      id: 1005,
-      selectables: [{ key: "flag" }],
-      note: "this one is old",
-      when: new Date("2019-01-21T06:00:00")
-    });
-    this.addEntry({
-      id: 1006,
-      selectables: [{ key: "pee" }, { key: "flag" }],
-      note: "xmas",
-      when: new Date("2019-12-25T14:00:00")
-    });
-    console.log(this);
+    this.store = store;
   }
   async getSelectables() {
     return [
@@ -84,40 +45,35 @@ class AppDataFacade {
     return key.toDateString();
   }
   async getLatestEntriesByDate() {
-    if (this.latestEntriesByDate === null) {
-      this.latestEntriesByDate = {};
-      // fetch from data store
-    }
-
-    return this.latestEntriesByDate;
+    return this.store.getLatestEntriesByDate();
   }
 
   async getAllEntries() {
-    if (this.allEntries === null) {
-      this.allEntries = {}; // fetch from data store
-    }
-    return this.allEntries;
+    return this.store.getAllEntries();
   }
 
-  async addEntry(entry) {
-    let dateKey = this.makeDateKey(entry.when);
+  async addEntry(toCreate) {
+    let dateKey = this.makeDateKey(toCreate.when);
 
-    if (this.latestEntriesByDate === null) {
-      this.latestEntriesByDate = {};
-    }
-    if (!this.latestEntriesByDate[dateKey]) {
-      this.latestEntriesByDate[dateKey] = {
-        entries: [],
-        dateKey: dateKey,
-        date: new Date(dateKey)
-      };
-    }
-    this.latestEntriesByDate[dateKey].entries.unshift(entry);
+    let entry = this.store.addEntry(toCreate);
 
-    if (this.allEntries === null) {
-      this.allEntries = {};
-    }
-    this.allEntries[entry.id] = entry;
+    return entry;
+    // if (this.latestEntriesByDate === null) {
+    //   this.latestEntriesByDate = {};
+    // }
+    // if (!this.latestEntriesByDate[dateKey]) {
+    //   this.latestEntriesByDate[dateKey] = {
+    //     entries: [],
+    //     dateKey: dateKey,
+    //     date: new Date(dateKey)
+    //   };
+    // }
+    // this.latestEntriesByDate[dateKey].entries.unshift(entry);
+
+    // if (this.allEntries === null) {
+    //   this.allEntries = {};
+    // }
+    // this.allEntries[entry.id] = entry;
   }
 }
 

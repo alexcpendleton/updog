@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "hoodie": "^28.2.10",
+    "localforage": "^1.7.3",
     "pouchdb-browser": "^7.1.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",

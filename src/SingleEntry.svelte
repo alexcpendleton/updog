@@ -8,11 +8,16 @@
   }
 
   function toTime() {
+    let when = entry.when;
+
+    if(!when.getFullYear) {
+      when = new Date(when);
+    }
     return new Intl.DateTimeFormat("default", {
       hour12: true,
       hour: "numeric",
       minute: "numeric"
-    }).format(entry.when);
+    }).format(when);
   }
   // entry.selectables will only have the keys, but we want the whole meta
   // so we can display the object. Look in our map for the ones with matching keys

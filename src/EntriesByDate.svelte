@@ -7,6 +7,10 @@
   export let entries = [];
   export let date;
 
+  if(!date.getFullYear) {
+    date = new Date(date);
+  }
+
   if (date && !headerText) {
     headerText = `${date.getFullYear()}-${date.getMonth() +
       1}-${date.getDate()}`;

@@ -5,7 +5,9 @@
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
   //import PouchDbStore from "./PouchDbStore.js";
-  //let data = new AppDataFacade({ store: new PouchDbStore() });
+  import LocalAndMemoryStore from "./LocalAndMemoryStore.js";
+  
+  let data = new AppDataFacade({ store: new LocalAndMemoryStore() });
   function adaptSelectable(i) {
     return Object.assign({}, i, { checked: false });
   }

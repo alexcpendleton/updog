@@ -13,7 +13,6 @@
   }
 
   async function handleSave(event) {
-    console.log("handleSave", arguments);
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -40,8 +39,8 @@
       return;
     }
 
-    onEntryAdded(newEntry);
     resetForm();
+    await onEntryAdded(newEntry);
   }
   function amendCss(item, i) {
     let corner = "";

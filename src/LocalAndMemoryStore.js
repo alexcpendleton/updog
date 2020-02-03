@@ -1,3 +1,5 @@
+import { cloneDeep, clone } from "lodash-es";
+
 //import localforage from "localforage";
 
 class LocalAndMemoryStore {
@@ -16,14 +18,17 @@ class LocalAndMemoryStore {
     return key.toDateString();
   }
   async getLatestEntriesByDate() {
-    debugger;
+    console.log(
+      "LocalAndMemoryStore.getLatestEntriesByDate",
+      this.latestEntriesByDate
+    );
     if (this.latestEntriesByDate === null) {
       let s = (await this.storage.getItem("latestEntriesByDate")) || "{}";
       let got = JSON.parse(s);
       this.latestEntriesByDate = got;
     }
 
-    return this.latestEntriesByDate;
+    return cloneDeep(this.latestEntriesByDate);
   }
 
   async getAllEntries() {
@@ -52,7 +57,9 @@ class LocalAndMemoryStore {
     }
   }
 
-  async addEntry(entry) {
+  async addEntry(source) {
+    let entry = cloneDeep(source);
+    entry.id = entry.when;
     let dateKey = this.makeDateKey(entry.when);
 
     if (this.latestEntriesByDate === null) {
@@ -72,6 +79,7 @@ class LocalAndMemoryStore {
     }
     this.allEntries[entry.id] = entry;
     this.triggerStorageSync();
+    return entry;
   }
 }
 

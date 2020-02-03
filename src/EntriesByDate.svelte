@@ -14,7 +14,6 @@
   if (date && !headerText) {
     headerText = `${date.getFullYear()}-${date.getMonth() +
       1}-${date.getDate()}`;
-    debugger;
   }
   function css(i) {
     let bg = "";

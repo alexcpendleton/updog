@@ -1,20 +1,22 @@
 <script>
   import Tailwindcss from "./Tailwindcss.svelte";
   import AppDataFacade from "./AppDataFacade.js";
-  import EntriesByDate from "./EntriesByDate.svelte";
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
+  import History from "./History.svelte";
   //import PouchDbStore from "./PouchDbStore.js";
   import LocalAndMemoryStore from "./LocalAndMemoryStore.js";
-  
+  import HomeScreen from "./HomeScreen.svelte";
+
   let data = new AppDataFacade({ store: new LocalAndMemoryStore() });
   function adaptSelectable(i) {
     return Object.assign({}, i, { checked: false });
   }
 
+  let pleaseRerender = new Date().toUTCString();
   let defaultSelectables;
   let selectables = [];
-  export let latestEntriesByDate = [];
+  let latestEntriesByDate = [];
 
   async function init() {
     // copy the source data version, slap on a "checked attribute" for the view
@@ -28,13 +30,16 @@
     }
 
     let latestAsObj = await data.getLatestEntriesByDate();
+    console.log("got em", latestAsObj);
     let latestArray = [];
     // transform the object into an array, then maybe sort it?
     for (let key in latestAsObj) {
+      latestAsObj[key].change = new Date();
       latestArray.push(latestAsObj[key]);
     }
-    latestArray.sort((a, b) => b.date - a.date);
+    latestArray.sort((a, b) => a.date - b.date);
     latestEntriesByDate = latestArray;
+    pleaseRerender = new Date().toUTCString();
   }
 
   async function onEntryAdded(newEntry) {
@@ -49,20 +54,9 @@
 </style>
 
 <Tailwindcss />
-<main class="mx-auto" style="width:280px">
-  <section id="log-form">
-    <EntryForm {selectables} {onEntryAdded} />
-  </section>
-  <section id="history" class=" text-sm text-left ">
-    <ol>
-      {#each latestEntriesByDate as group (group.id)}
-        <li>
-          <EntriesByDate
-            entries={group.entries}
-            date={group.date}
-            selectableMap={defaultSelectables} />
-        </li>
-      {/each}
-    </ol>
-  </section>
-</main>
+<HomeScreen
+  {defaultSelectables}
+  {selectables}
+  {latestEntriesByDate}
+  {pleaseRerender}
+  {onEntryAdded} />

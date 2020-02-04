@@ -24,7 +24,7 @@ class LocalAndMemoryStore {
     );
     if (this.latestEntriesByDate === null) {
       let s = (await this.storage.getItem("latestEntriesByDate")) || "{}";
-      let got = JSON.parse(s);
+      let got = this.parseJson(s);
       this.latestEntriesByDate = got;
     }
 
@@ -34,10 +34,24 @@ class LocalAndMemoryStore {
   async getAllEntries() {
     if (this.allEntries === null) {
       let s = (await this.storage.getItem("allEntries")) || "{}";
-      let got = JSON.parse(s);
+      let got = this.parseJson(s);
       this.allEntries = got;
     }
     return this.allEntries;
+  }
+
+  parseJson(toParse) {
+    let dateTimeReviver = function(key, value) {
+      var a;
+      if (typeof value === "string") {
+        a = /\/Date\((\d*)\)\//.exec(value);
+        if (a) {
+          return new Date(+a[1]);
+        }
+      }
+      return value;
+    };
+    return JSON.parse(toParse, dateTimeReviver);
   }
 
   async triggerStorageSync() {

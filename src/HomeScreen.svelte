@@ -3,7 +3,6 @@
   import EntryForm from "./EntryForm.svelte";
   import History from "./History.svelte";
 
-  export let pleaseRerender;
   export let defaultSelectables;
   export let latestEntriesByDate = [];
   export let selectables = [];

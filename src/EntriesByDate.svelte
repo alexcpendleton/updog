@@ -7,7 +7,7 @@
   export let entries = [];
   export let date;
 
-  if(!date.getFullYear) {
+  if (!date.getFullYear) {
     date = new Date(date);
   }
 
@@ -27,7 +27,7 @@
 <div class="mb-2 text-xs">
   <strong class="underline px-1">{headerText}</strong>
   <ol>
-    {#each entries as entry, i (entry.id)}
+    {#each entries as entry, i (entry._id)}
       <li class={css(i)}>
         <SingleEntry {entry} {selectableMap} />
       </li>

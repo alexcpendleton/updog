@@ -73,7 +73,7 @@ class LocalAndMemoryStore {
 
   async addEntry(source) {
     let entry = cloneDeep(source);
-    entry.id = entry.when;
+    entry._id = entry.when;
     let dateKey = this.makeDateKey(entry.when);
 
     if (this.latestEntriesByDate === null) {
@@ -91,7 +91,7 @@ class LocalAndMemoryStore {
     if (this.allEntries === null) {
       this.allEntries = {};
     }
-    this.allEntries[entry.id] = entry;
+    this.allEntries[entry._id] = entry;
     this.triggerStorageSync();
     return entry;
   }

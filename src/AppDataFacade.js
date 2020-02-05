@@ -58,22 +58,6 @@ class AppDataFacade {
     let entry = this.store.addEntry(toCreate);
 
     return entry;
-    // if (this.latestEntriesByDate === null) {
-    //   this.latestEntriesByDate = {};
-    // }
-    // if (!this.latestEntriesByDate[dateKey]) {
-    //   this.latestEntriesByDate[dateKey] = {
-    //     entries: [],
-    //     dateKey: dateKey,
-    //     date: new Date(dateKey)
-    //   };
-    // }
-    // this.latestEntriesByDate[dateKey].entries.unshift(entry);
-
-    // if (this.allEntries === null) {
-    //   this.allEntries = {};
-    // }
-    // this.allEntries[entry.id] = entry;
   }
 }
 

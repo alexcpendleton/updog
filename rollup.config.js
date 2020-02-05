@@ -18,7 +18,7 @@ export default {
     file: "public/build/bundle.js"
   },
   plugins: [
-    globals(),
+    commonjs(),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -29,7 +29,6 @@ export default {
         css.write("public/build/bundle.css");
       }
     }),
-    commonjs(),
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration —
@@ -41,6 +40,8 @@ export default {
       dedupe: importee =>
         importee === "svelte" || importee.startsWith("svelte/")
     }),
+    globals(),
+    builtins(),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

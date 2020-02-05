@@ -4,11 +4,14 @@
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
   import History from "./History.svelte";
-  //import PouchDbStore from "./PouchDbStore.js";
-  import LocalAndMemoryStore from "./LocalAndMemoryStore.js";
   import HomeScreen from "./HomeScreen.svelte";
 
-  let data = new AppDataFacade({ store: new LocalAndMemoryStore() });
+  import PouchDbStore from "./PouchDbStore.js";
+  let data = new AppDataFacade({ store: new PouchDbStore() });
+
+  // import LocalAndMemoryStore from "./LocalAndMemoryStore.js";
+  // let data = new AppDataFacade({ store: new LocalAndMemoryStore() });
+
   function adaptSelectable(i) {
     return Object.assign({}, i, { checked: false });
   }

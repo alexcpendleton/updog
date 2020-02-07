@@ -47,7 +47,7 @@
     if (i === 0) {
       corner = "rounded-l";
     } else if (i === selectables.length - 1) {
-      corner = "rounded-r";
+      corner = "rounded-r border-l-0 ";
     } else {
       corner = " border-l-0 ";
     }

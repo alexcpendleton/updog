@@ -33,7 +33,6 @@
     }
 
     let latestAsObj = await data.getLatestEntriesByDate();
-    console.log("got em", latestAsObj);
     let latestArray = [];
     // transform the object into an array, then maybe sort it?
     for (let key in latestAsObj) {

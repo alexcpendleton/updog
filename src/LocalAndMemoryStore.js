@@ -18,10 +18,6 @@ class LocalAndMemoryStore {
     return key.toDateString();
   }
   async getLatestEntriesByDate() {
-    console.log(
-      "LocalAndMemoryStore.getLatestEntriesByDate",
-      this.latestEntriesByDate
-    );
     if (this.latestEntriesByDate === null) {
       let s = (await this.storage.getItem("latestEntriesByDate")) || "{}";
       let got = this.parseJson(s);
@@ -67,7 +63,6 @@ class LocalAndMemoryStore {
     if (keys.length > this.settings.numberOfDaysInLatest) {
       keys.sort((a, b) => b - a);
       let removed = keys.splice(this.settings.numberOfDaysInLatest);
-      console.log(removed);
     }
   }
 

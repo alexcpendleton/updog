@@ -17,4 +17,12 @@
   <section id="history" class=" text-sm text-left ">
     <History {latestEntriesByDate} {defaultSelectables} />
   </section>
+  <section id="icon-attribution" class="text-xs">
+    Icons made by
+    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+      Freepik
+    </a>
+    from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+  </section>
 </main>

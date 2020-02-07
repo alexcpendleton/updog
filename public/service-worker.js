@@ -1,4 +1,4 @@
-var cacheName = "updog-cache";
+var cacheName = "updog-cache-2";
 var filesToCache = [
   "/",
   "/index.html",

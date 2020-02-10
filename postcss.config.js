@@ -1,13 +1,17 @@
 const purgecss = require("@fullhuman/postcss-purgecss")({
-  content: ["./src/**/*.html", "./src/**/*.svelte"],
+  content: [
+    "./src/**/*.html",
+    "./src/**/*.svelte",
+    "./public/index.html",
+    "./public/**/*.css"
+  ],
 
-  whitelistPatterns: [/svelte-/],
+  whitelistPatterns: [/svelte-/, /global/],
 
   defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
 });
 
-const production = true;
-//localhost:5000///!process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH;
 
 http: module.exports = {
   plugins: [

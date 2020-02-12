@@ -6,14 +6,11 @@
   export let onEntryAdded = function() {};
   export let when = "";
   export let isWhenDatePickerOpen = false;
-  let pleaseRerender = new Date();
 
   function resetForm() {
     note = "";
     isWhenDatePickerOpen = false;
-    when = new Date();
-    pleaseRerender =
-      new Date().toDateString() + " " + new Date().toTimeString();
+    when = "";
     selectables = selectables.map(i =>
       Object.assign({}, i, { checked: false })
     );
@@ -113,9 +110,8 @@
       </label>
     {/each}
   </div>
-  {#if pleaseRerender}
-    <EntryWhen {when} {handleWhenChange} {pleaseRerender} />
-  {/if}
+
+  <EntryWhen {handleWhenChange} selectedValue={when} />
 
   <label class="note mt-1 block">
     <span class="visually-hidden">Note:</span>

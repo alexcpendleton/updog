@@ -1,53 +1,33 @@
 <script>
   import Flatpickr from "svelte-flatpickr";
-  import { beforeUpdate } from "svelte";
-  export let when = "";
   export let handleWhenChange = function() {};
-  export let isOpen = false;
-  export let pleaseRerender = "";
   let placeholder = "Choose a date/time";
-  let flatpickrValue = when || new Date();
+  export let selectedValue = "";
 
   let flatpickrOptions = {
     enableTime: true,
     wrap: true,
     element: "#flatpickr-container",
-    defaultDate: flatpickrValue,
+    defaultDate: new Date(),
     inline: false
   };
-  beforeUpdate(() => {
-    console.log("the component has beforeUpdated");
-  });
   function handleChange(event) {
     if (event && event.detail && event.detail.length > 1) {
       let selectedDates = event.detail[0];
-      let dateStr = event.detail[1];
       if (selectedDates) {
-        when = selectedDates[0];
-        handleWhenChange(when);
+        selectedValue = selectedDates[0];
+        handleWhenChange(selectedValue);
       }
-    }
-  }
-  function handleToggleClick() {
-    if (isOpen) {
-      // Reset to "no date/time selected when closed"
-      isOpen = false;
-      when = "";
-    } else {
-      isOpen = true;
     }
   }
 </script>
 
-<div
-  class="when-container block"
-  data-open={isOpen}
-  data-pleasererender={pleaseRerender}>
+<div class="when-container block">
   <Flatpickr
     options={flatpickrOptions}
     {placeholder}
     on:change={handleChange}
-    {pleaseRerender}
+    bind:value={selectedValue}
     element="#flatpickr-container">
     <div class="flatpickr" id="flatpickr-container">
       <button type="button" data-toggle>📆</button>
@@ -57,8 +37,7 @@
         <input
           type="text"
           placeholder="Select Date and Time of the event..."
-          data-input
-          bind-value={flatpickrValue} />
+          data-input />
         <div>When:</div>
       </label>
     </div>

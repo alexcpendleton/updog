@@ -41,7 +41,7 @@
       latestAsObj[key].change = new Date();
       latestArray.push(latestAsObj[key]);
     }
-    latestArray.sort((a, b) => a.date - b.date);
+    latestArray.reverse();
     latestEntriesByDate = latestArray;
     pleaseRerender = new Date().toUTCString();
   }

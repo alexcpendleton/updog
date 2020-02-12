@@ -6,12 +6,12 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
     "./public/**/*.css"
   ],
 
-  whitelistPatterns: [/svelte-/, /global/],
+  whitelistPatterns: [/svelte-/, /global/, /flatpickr/],
 
   defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
 });
 
-const production = !process.env.ROLLUP_WATCH;
+const production = false; //!process.env.ROLLUP_WATCH;
 
 http: module.exports = {
   plugins: [

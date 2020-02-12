@@ -1,12 +1,19 @@
 <script>
   import SelectableIcon from "./SelectableIcon.svelte";
+  import EntryWhen from "./EntryWhen.svelte";
   export let selectables = [];
   export let note = "";
   export let onEntryAdded = function() {};
+  export let when = "";
+  export let isWhenDatePickerOpen = false;
+  let pleaseRerender = new Date();
 
-  export function resetForm() {
+  function resetForm() {
     note = "";
-    // todo: this doesn't seem to be resetting the checked status in the form...
+    isWhenDatePickerOpen = false;
+    when = new Date();
+    pleaseRerender =
+      new Date().toDateString() + " " + new Date().toTimeString();
     selectables = selectables.map(i =>
       Object.assign({}, i, { checked: false })
     );
@@ -31,8 +38,10 @@
       newEntry.selectables = [];
     }
     newEntry.note = note;
-    // todo put this in the form?
     newEntry.when = new Date();
+    if (when) {
+      newEntry.when = new Date(when);
+    }
 
     if (newEntry.selectables.count === 0 && note.length === 0) {
       // don't save an empty entry
@@ -66,10 +75,13 @@
     }
     return "display:none";
   }
+  function handleWhenChange(newWhenValue) {
+    when = newWhenValue;
+  }
 </script>
 
 <form name="updog" method="post">
-  <div class="selectables inline-flex my-2">
+  <div class="selectables inline-flex mt-2 mb-1">
     {#each selectables as item, i (item.key)}
       <label
         class="cursor-pointer text-center inline-block text-2xl px-2
@@ -101,9 +113,12 @@
       </label>
     {/each}
   </div>
+  {#if pleaseRerender}
+    <EntryWhen {when} {handleWhenChange} {pleaseRerender} />
+  {/if}
 
-  <label class="note">
-    <span class="hidden">Note:</span>
+  <label class="note mt-1 block">
+    <span class="visually-hidden">Note:</span>
     <textarea
       id="note"
       name="note"

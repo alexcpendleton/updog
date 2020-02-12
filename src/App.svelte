@@ -5,6 +5,8 @@
   import EntryForm from "./EntryForm.svelte";
   import History from "./History.svelte";
   import HomeScreen from "./HomeScreen.svelte";
+  import FlatpickrCss from "./FlatpickrCss.svelte";
+  import FlatpickrThemeCss from "./FlatpickrThemeCss.svelte";
 
   import PouchDbStore from "./PouchDbStore.js";
   let data = new AppDataFacade({ store: new PouchDbStore() });
@@ -56,6 +58,8 @@
 </style>
 
 <Tailwindcss />
+<FlatpickrCss />
+<FlatpickrThemeCss />
 <HomeScreen
   {defaultSelectables}
   {selectables}

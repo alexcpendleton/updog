@@ -5,6 +5,12 @@
   export let selectedValue = "";
   let humanValue = "";
 
+  $: {
+    if (selectedValue === "") {
+      humanValue = "";
+    }
+  }
+
   let flatpickrOptions = {
     enableTime: true,
     wrap: true,

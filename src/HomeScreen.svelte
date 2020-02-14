@@ -8,6 +8,7 @@
   export let selectables = [];
 
   export let onEntryAdded;
+  export let handleDelete = function() {};
 </script>
 
 <main class="mx-auto" style="width:280px">
@@ -15,7 +16,7 @@
     <EntryForm {selectables} {onEntryAdded} />
   </section>
   <section id="history" class=" text-sm text-left ">
-    <History {latestEntriesByDate} {defaultSelectables} />
+    <History {latestEntriesByDate} {defaultSelectables} {handleDelete} />
   </section>
   <section id="icon-attribution" class="text-xs">
     Icons made by

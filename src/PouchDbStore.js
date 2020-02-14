@@ -63,6 +63,9 @@ class PouchDbStore {
     let everything = await this.dbs.local.allDocs();
     return everything;
   }
+  async deleteEntry(entryToDelete) {
+    return this.dbs.local.remove(entryToDelete);
+  }
 }
 
 export default PouchDbStore;

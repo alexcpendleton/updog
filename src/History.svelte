@@ -3,6 +3,7 @@
   import EntriesByDate from "./EntriesByDate.svelte";
   export let latestEntriesByDate = [];
   export let defaultSelectables = {};
+  export let handleDelete = function() {};
 </script>
 
 <ol>
@@ -11,7 +12,8 @@
       <EntriesByDate
         entries={group.entries}
         date={group.date}
-        selectableMap={defaultSelectables} />
+        selectableMap={defaultSelectables}
+        {handleDelete} />
     </li>
   {/each}
 </ol>

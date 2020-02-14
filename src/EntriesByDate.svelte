@@ -6,6 +6,7 @@
   let headerText = "";
   export let entries = [];
   export let date;
+  export let handleDelete = function() {};
 
   if (!date.getFullYear) {
     date = new Date(date);
@@ -29,7 +30,7 @@
   <ol>
     {#each entries as entry, i (entry._id)}
       <li class={css(i)}>
-        <SingleEntry {entry} {selectableMap} />
+        <SingleEntry {entry} {selectableMap} {handleDelete} />
       </li>
     {/each}
   </ol>

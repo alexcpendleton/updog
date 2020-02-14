@@ -59,6 +59,10 @@ class AppDataFacade {
 
     return entry;
   }
+
+  async deleteEntry(entryToDelete) {
+    return this.store.deleteEntry(entryToDelete);
+  }
 }
 
 export default AppDataFacade;

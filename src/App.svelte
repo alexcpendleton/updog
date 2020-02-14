@@ -45,6 +45,10 @@
     await data.addEntry(newEntry);
     await init();
   }
+  async function handleDelete(entryToDelete) {
+    await data.deleteEntry(entryToDelete);
+    await init();
+  }
   init();
 </script>
 
@@ -59,4 +63,5 @@
   {defaultSelectables}
   {selectables}
   {latestEntriesByDate}
-  {onEntryAdded} />
+  {onEntryAdded}
+  {handleDelete} />

@@ -13,3 +13,11 @@
   width: 1px;
   white-space: nowrap;
 }
+
+.note-textarea {
+  width: 80%;
+}
+.note-textarea::placeholder {
+  text-align: center;
+  line-height: 3em;
+}

@@ -39,7 +39,8 @@
 </script>
 
 <div
-  class="single-entry text-xs flex flex-no-wrap items-stretch content-center">
+  class="single-entry text-xs flex flex-no-wrap items-stretch content-center
+  justify-between">
   <div class="entry-details">
     <strong class="time inline">{time}</strong>
     {#if usedSelectables}

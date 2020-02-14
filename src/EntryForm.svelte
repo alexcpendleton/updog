@@ -116,11 +116,10 @@
   <label class="note mt-1 block">
     <span class="visually-hidden">Note:</span>
     <textarea
-      id="note"
       name="note"
       bind:value={note}
       placeholder="enter a note, if you want"
-      class="text-gray-800 px-2 text-sm" />
+      class="note-textarea text-gray-800 px-2 text-sm" />
   </label>
   <div>
     <button

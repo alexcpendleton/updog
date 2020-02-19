@@ -30,6 +30,10 @@
     latestEntriesByDate = latestArray;
   }
 
+  function adaptSelectable(i) {
+    return Object.assign({}, i, { checked: false });
+  }
+
   async function onEntryAdded(newEntry) {
     await data.addEntry(newEntry);
     await init();

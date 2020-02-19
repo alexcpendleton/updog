@@ -4,7 +4,7 @@
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
   import History from "./History.svelte";
-  import HomeScreen from "./HomeScreen.svelte";
+  import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
   import FlatpickrCss from "./FlatpickrCss.svelte";
   import FlatpickrThemeCss from "./FlatpickrThemeCss.svelte";
 
@@ -19,4 +19,4 @@
 <Tailwindcss />
 <FlatpickrCss />
 <FlatpickrThemeCss />
-<HomeScreen {data} />
+<EntryAndHistoryScreen {data} />

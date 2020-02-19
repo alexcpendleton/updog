@@ -1,15 +1,17 @@
 <script>
   import Tailwindcss from "./Tailwindcss.svelte";
   import AppDataFacade from "./AppDataFacade.js";
-  import SelectableIcon from "./SelectableIcon.svelte";
-  import EntryForm from "./EntryForm.svelte";
-  import History from "./History.svelte";
-  import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
   import FlatpickrCss from "./FlatpickrCss.svelte";
   import FlatpickrThemeCss from "./FlatpickrThemeCss.svelte";
 
+  import SettingsScreen from "./SettingsScreen.svelte";
+  import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
+
   import PouchDbStore from "./PouchDbStore.js";
   let data = new AppDataFacade({ store: new PouchDbStore() });
+
+  export let pageName = "";
+  debugger;
 </script>
 
 <style type="text/css">
@@ -19,4 +21,8 @@
 <Tailwindcss />
 <FlatpickrCss />
 <FlatpickrThemeCss />
-<EntryAndHistoryScreen {data} />
+{#if pageName == 'settings'}
+  <SettingsScreen {data} />
+{:else}
+  <EntryAndHistoryScreen {data} />
+{/if}

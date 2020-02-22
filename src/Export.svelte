@@ -6,7 +6,7 @@
     var blob = new Blob([result], {
       type: "text/plain;charset=utf-8"
     });
-    saveAs(blob, "UpDogExport.json");
+    saveAs(blob, "UpDogExport.json.txt");
   }
 </script>
 

@@ -39,6 +39,8 @@
     if (when) {
       newEntry.when = new Date(when);
     }
+    newEntry.created_at = new Date();
+    newEntry.updated_at = new Date();
 
     if (newEntry.selectables.count === 0 && note.length === 0) {
       // don't save an empty entry

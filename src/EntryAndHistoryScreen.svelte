@@ -43,6 +43,14 @@
     await init();
   }
   init();
+
+  // When we get new updates from the server reload the latest entries
+  // at this point it doesn't really matter what's in there, just reload everything
+  data.onSyncComplete(stuff => {
+    debugger;
+    console.log("sync complete!", stuff);
+    init();
+  });
 </script>
 
 <main class="mx-auto" style="width:280px">

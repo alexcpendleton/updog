@@ -1,13 +1,42 @@
 import PouchDB from "pouchdb-browser";
-
+import EventEmitter from "events";
 class PouchDbStore {
-  constructor() {
+  constructor({ options = {} }) {
     this.dbs = {
-      local: new PouchDB("updog")
+      local: new PouchDB("updog"),
+      remote: null
     };
-    this.settings = {
-      latestNumberOfDays: 30
-    };
+    this.settings = Object.assign(
+      {},
+      {
+        latestNumberOfDays: 30
+      },
+      options
+    );
+    this.emitter = new EventEmitter();
+    this.syncCompleteEvent = "sync.complete";
+    this.registerSync();
+  }
+  on(event, listener) {
+    this.emitter.on(event, listener);
+  }
+
+  handleSyncComplete(info) {
+    console.log("handleSyncComplete", info);
+    this.emitter.emit(this.syncCompleteEvent, {
+      info
+    });
+  }
+  registerSync() {
+    if (!this.settings.sync || !this.settings.sync.uri) {
+      return;
+    }
+    this.dbs.remote = new PouchDB(this.settings.sync.uri);
+    this.dbs.sync = PouchDB.sync(this.dbs.local, this.dbs.remote, {
+      live: false,
+      retry: false,
+      ajax: { withCredentials: false }
+    }).on("complete", this.handleSyncComplete);
   }
   async getLatestEntriesByDate() {
     let everything = await this.dbs.local.allDocs({ include_docs: true });

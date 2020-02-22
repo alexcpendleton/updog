@@ -8,10 +8,18 @@
   import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
 
   import PouchDbStore from "./PouchDbStore.js";
-  let data = new AppDataFacade({ store: new PouchDbStore() });
+  let settings = {
+    // sync: {
+    //   uri: "http://localhost:6942/db"
+    // }
+  };
+  let data = new AppDataFacade({
+    store: new PouchDbStore({
+      options: settings
+    })
+  });
 
   export let pageName = "";
-  debugger;
 </script>
 
 <style type="text/css">

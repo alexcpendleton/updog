@@ -1,9 +1,19 @@
+import EventEmitter from "events";
 class AppDataFacade {
   constructor({ store }) {
     this.latestEntriesByDate = null;
     this.allEntries = null;
     this.numberOfDaysInLatest = 30;
     this.store = store;
+    this.emitter = new EventEmitter();
+    this.syncCompleteEvent = "sync.complete";
+    this.store.on(this.syncCompleteEvent, this.handleSyncComplete);
+  }
+  handleSyncComplete(event, data) {
+    this.emitter.emit(this.syncCompleteEvent, data);
+  }
+  onSyncComplete(listener) {
+    this.emitter.on(this.syncCompleteEvent, listener);
   }
   async getSelectables() {
     return [

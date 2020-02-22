@@ -18,7 +18,14 @@ export default {
     file: "public/build/bundle.js"
   },
   plugins: [
-    commonjs(),
+    commonjs({
+      namedExports: {
+        // left-hand side can be an absolute path, a path
+        // relative to the current directory, or the name
+        // of a module in node_modules
+        "file-saver": ["saveAs"]
+      }
+    }),
     svelte({
       // enable run-time checks when not in production
       dev: !production,

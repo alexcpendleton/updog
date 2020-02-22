@@ -63,6 +63,9 @@ class AppDataFacade {
   async deleteEntry(entryToDelete) {
     return this.store.deleteEntry(entryToDelete);
   }
+  async dump() {
+    return this.store.dump();
+  }
 }
 
 export default AppDataFacade;

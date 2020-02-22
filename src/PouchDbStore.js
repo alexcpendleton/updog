@@ -60,11 +60,15 @@ class PouchDbStore {
   }
 
   async getAllEntries() {
-    let everything = await this.dbs.local.allDocs();
+    let everything = await this.dbs.local.allDocs({ include_docs: true });
     return everything;
   }
   async deleteEntry(entryToDelete) {
     return this.dbs.local.remove(entryToDelete);
+  }
+  async dump() {
+    let everything = await this.dbs.local.allDocs({ include_docs: true });
+    return JSON.stringify(everything);
   }
 }
 

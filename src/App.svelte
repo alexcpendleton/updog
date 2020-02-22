@@ -11,7 +11,6 @@
   let data = new AppDataFacade({ store: new PouchDbStore() });
 
   export let pageName = "";
-  debugger;
 </script>
 
 <style type="text/css">

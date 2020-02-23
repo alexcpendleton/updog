@@ -1,15 +1,19 @@
 <script>
-  import Tailwindcss from "./Tailwindcss.svelte";
   import AppDataFacade from "./AppDataFacade.js";
+  import AuthHandler from "./AuthHandler.js";
+
+  import Tailwindcss from "./Tailwindcss.svelte";
   import FlatpickrCss from "./FlatpickrCss.svelte";
   import FlatpickrThemeCss from "./FlatpickrThemeCss.svelte";
 
   import SettingsScreen from "./SettingsScreen.svelte";
   import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
+  import AuthPrompt from "./AuthPrompt.svelte";
 
   //import PouchDbStore from "./PouchDbStore.js";
   import RxDBStore from "./RxDBStore.js";
 
+  let auth = new AuthHandler();
   let data = new AppDataFacade({ store: new RxDBStore() });
 
   let ready = false;
@@ -36,6 +40,6 @@
     {:else}
       <EntryAndHistoryScreen {data} />
     {/if}
+    <AuthPrompt {auth} />
   {/if}
-
 </div>

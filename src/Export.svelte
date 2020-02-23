@@ -1,6 +1,6 @@
 <script>
   export let data;
-  var auth = data.getAuth();
+  var auth = {};
   let userID = auth.userId || "";
 
   var query = `

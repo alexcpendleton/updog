@@ -1,12 +1,36 @@
 <script>
-  import saveAs from "file-saver";
   export let data;
+  var query = `
+mutation insert_dumps($objects: [dumps_insert_input!]!) {
+  insert_dumps(objects: $objects) {
+    returning {
+      id
+    }
+  }
+}`;
   async function handleExportClick() {
     var result = await data.dump();
-    var blob = new Blob([result], {
-      type: "text/plain;charset=utf-8"
+    // var blob = new Blob([result], {
+    //   type: "text/plain;charset=utf-8"
+    // });
+    // saveAs(blob, "UpDogExport.json.txt");
+    var uri = "https://updog-heroku-postgres.herokuapp.com/v1/graphql";
+    var obj = {
+      blob: result
+    };
+    fetch(uri, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        query,
+        variables: {
+          objects: [obj]
+        }
+      })
     });
-    saveAs(blob, "UpDogExport.json.txt");
   }
 </script>
 

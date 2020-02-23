@@ -16,7 +16,8 @@ mutation insert_dumps($objects: [dumps_insert_input!]!) {
     // saveAs(blob, "UpDogExport.json.txt");
     var uri = "https://updog-heroku-postgres.herokuapp.com/v1/graphql";
     var obj = {
-      blob: result
+      blob: result,
+      created_at: new Date()
     };
     fetch(uri, {
       method: "POST",

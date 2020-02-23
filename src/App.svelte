@@ -7,10 +7,19 @@
   import SettingsScreen from "./SettingsScreen.svelte";
   import EntryAndHistoryScreen from "./EntryAndHistoryScreen.svelte";
 
-  import PouchDbStore from "./PouchDbStore.js";
-  let data = new AppDataFacade({ store: new PouchDbStore() });
+  //import PouchDbStore from "./PouchDbStore.js";
+  import RxDBStore from "./RxDBStore.js";
+
+  let data = new AppDataFacade({ store: new RxDBStore() });
+
+  let ready = false;
+  async function init() {
+    await data.init();
+    ready = true;
+  }
 
   export let pageName = "";
+  init();
 </script>
 
 <style type="text/css">
@@ -20,8 +29,13 @@
 <Tailwindcss />
 <FlatpickrCss />
 <FlatpickrThemeCss />
-{#if pageName == 'settings'}
-  <SettingsScreen {data} />
-{:else}
-  <EntryAndHistoryScreen {data} />
-{/if}
+<div>
+  {#if ready}
+    {#if pageName == 'settings'}
+      <SettingsScreen {data} />
+    {:else}
+      <EntryAndHistoryScreen {data} />
+    {/if}
+  {/if}
+
+</div>

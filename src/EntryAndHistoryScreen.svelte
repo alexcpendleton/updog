@@ -10,6 +10,8 @@
   let latestEntriesByDate = [];
   export let showDumpButton = true;
 
+  let ready = false;
+
   async function init() {
     // copy the source data version, slap on a "checked attribute" for the view
     // keep those clean and make a copy for working data
@@ -30,6 +32,7 @@
     }
     latestArray.reverse();
     latestEntriesByDate = latestArray;
+    ready = true;
   }
 
   function adaptSelectable(i) {
@@ -48,21 +51,23 @@
 </script>
 
 <main class="mx-auto" style="width:280px">
-  <section id="log-form">
-    <EntryForm {selectables} {onEntryAdded} />
-  </section>
-  <section id="history" class=" text-sm text-left ">
-    <History {latestEntriesByDate} {defaultSelectables} {handleDelete} />
-  </section>
-  {#if showDumpButton}
-    <Export {data} />
+  {#if ready}
+    <section id="log-form">
+      <EntryForm {selectables} {onEntryAdded} />
+    </section>
+    <section id="history" class=" text-sm text-left ">
+      <History {latestEntriesByDate} {defaultSelectables} {handleDelete} />
+    </section>
+    {#if showDumpButton}
+      <Export {data} />
+    {/if}
+    <section id="icon-attribution" class="text-xs">
+      Icons made by
+      <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+        Freepik
+      </a>
+      from
+      <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    </section>
   {/if}
-  <section id="icon-attribution" class="text-xs">
-    Icons made by
-    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-      Freepik
-    </a>
-    from
-    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-  </section>
 </main>

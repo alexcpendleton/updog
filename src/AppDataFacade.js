@@ -5,6 +5,13 @@ class AppDataFacade {
     this.numberOfDaysInLatest = 30;
     this.store = store;
   }
+  async init() {
+    await this.store.init();
+  }
+  async initReplication() {
+    const auth = this.getAuth();
+    await this.store.initReplication(auth);
+  }
   async getSelectables() {
     return [
       {
@@ -65,6 +72,23 @@ class AppDataFacade {
   }
   async dump() {
     return this.store.dump();
+  }
+  async getAuth() {
+    // todo: make this better once auth0 is set up
+    function b(a) {
+      return a
+        ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
+        : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, b);
+    }
+    let userId = localStorage.getItem("__manual_user_id") || "";
+    if (userId === "") {
+      userId = b();
+      localStorage.setItem("__manual_user_id", userId);
+    }
+    return {
+      userId,
+      idToken: ""
+    };
   }
 }
 

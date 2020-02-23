@@ -23,7 +23,6 @@ export default {
         // left-hand side can be an absolute path, a path
         // relative to the current directory, or the name
         // of a module in node_modules
-        "file-saver": ["saveAs"]
       }
     }),
     svelte({
@@ -43,7 +42,11 @@ export default {
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
       ignoreGlobal: true,
+      module: true,
       browser: true,
+      jsnext: true,
+      main: true,
+      extensions: [".js", ".json", ".mjs", ".es"],
       dedupe: importee =>
         importee === "svelte" || importee.startsWith("svelte/")
     }),

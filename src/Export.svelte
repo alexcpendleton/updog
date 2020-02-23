@@ -61,10 +61,6 @@ mutation insert_entries($objects: [entries_insert_input!]!) {
     });
     console.dir(response);
   }
-
-  async function handleMigrateFromPouch() {
-    data.store.migrateFromPouch();
-  }
 </script>
 
 <div class="">
@@ -80,13 +76,5 @@ mutation insert_entries($objects: [entries_insert_input!]!) {
     class="inline-block bg-purple-600 hover:bg-purple-400 text-white font-bold
     py-1 px-4 rounded my-2">
     push
-  </button>
-
-  <button
-    type="button"
-    on:click={handleMigrateFromPouch}
-    class="inline-block bg-purple-600 hover:bg-purple-400 text-white font-bold
-    py-1 px-4 rounded my-2">
-    migrate from pouch
   </button>
 </div>

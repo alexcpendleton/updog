@@ -168,58 +168,6 @@ class RxDBStore {
     }
     await this.replicator.setupGraphQLReplication(auth);
   }
-
-  async migrateFromPouch() {
-    var remote = new PouchDB("updog");
-
-    let everything = await remote.allDocs({ include_docs: true });
-    let filtered = everything.rows.reduce(
-      (accumulator, current, idx, calledUpon) => {
-        let doc = Object.assign({}, current.doc);
-        // Gets stored as a string for whatever reason
-        doc.id = doc._id;
-        delete doc._id;
-        delete doc._rev;
-        accumulator.push(doc);
-        return accumulator;
-      },
-      []
-    );
-    console.dir(filtered);
-    for (let i = 0; i < filtered.length; i++) {
-      let entry = filtered[i];
-      this.addEntry(entry);
-    }
-    console.log("ok");
-    alert("done, please refresh");
-
-    // const replicationState = await this.dbs.local.entries.sync({
-    //   remote: remote, // remote database. This can be the serverURL, another RxCollection or a PouchDB-instance
-    //   waitForLeadership: true, // (optional) [default=true] to save performance, the sync starts on leader-instance only
-    //   direction: {
-    //     // direction (optional) to specify sync-directions
-    //     pull: true, // default=true
-    //     push: false // default=true
-    //   },
-    //   options: {
-    //     // sync-options (optional) from https://pouchdb.com/api.html#replication
-    //     live: false,
-    //     retry: false
-    //   }
-    // });
-    // replicationState.alive$.subscribe(alive => console.log("alive", alive));
-    // replicationState.change$.subscribe(change => console.log("change", change));
-    // replicationState.error$.subscribe(error => console.log("error", error));
-    // replicationState.docs$.subscribe(docData => console.log("docs", docData));
-    // replicationState.denied$.subscribe(docData =>
-    //   console.log("denied", docData)
-    // );
-    // replicationState.active$.subscribe(active => console.log("active", active));
-    // replicationState.complete$.subscribe(completed =>
-    //   console.log("complete", completed)
-    // );
-    // console.dir(replicationState);
-  }
 }
 
 export default RxDBStore;

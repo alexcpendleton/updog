@@ -72,8 +72,8 @@ class RxDBStore {
   async getLatestEntriesByDate() {
     let everything = await this.dbs.local.entries
       .find()
-      // .where("isDeleted")
-      // .eq(false)
+      .where("isDeleted")
+      .eq(false)
       .exec();
     // todo: have this query using a lib once performance is an issue
     let max = new Date();
@@ -153,9 +153,15 @@ class RxDBStore {
   //   return everything;
   // }
   async deleteEntry(entryToDelete) {
-    return this.dbs.local.entries.find(entryToDelete.id).update({
-      isDeleted: true
-    });
+    await this.dbs.local.entries
+      .findOne()
+      .where("id")
+      .eq(entryToDelete.id)
+      .update({
+        $set: {
+          isDeleted: true
+        }
+      });
   }
   // async dump() {
   //   let everything = await this.dbs.local.allDocs({ include_docs: true });

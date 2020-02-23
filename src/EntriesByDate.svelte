@@ -28,7 +28,7 @@
 <div class="mb-2 text-xs">
   <strong class="underline px-1">{headerText}</strong>
   <ol>
-    {#each entries as entry, i (entry._id)}
+    {#each entries as entry, i (entry.id)}
       <li class={css(i)}>
         <SingleEntry {entry} {selectableMap} {handleDelete} />
       </li>

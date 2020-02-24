@@ -11,21 +11,17 @@
     auth.emitter.on("isloggedout", handleIsLoggedOut);
   }
   function handleIsLoggedIn() {
-    console.log("handleIsLoggedIn", arguments);
     isLoggedIn = true;
     isReady = true;
   }
   function handleIsLoggedOut() {
-    console.log("handleIsLoggedOut", arguments);
     isLoggedIn = false;
     isReady = true;
   }
   function handleLogInClick() {
-    console.log("login click");
     auth.login();
   }
   function handleLogOutClick() {
-    console.log("logout click");
     auth.logout();
   }
   init();

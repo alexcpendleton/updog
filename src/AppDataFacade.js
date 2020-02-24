@@ -1,3 +1,5 @@
+import EventEmitter from "events";
+
 class AppDataFacade {
   constructor({ store, authHandler }) {
     this.latestEntriesByDate = null;
@@ -5,14 +7,33 @@ class AppDataFacade {
     this.numberOfDaysInLatest = 30;
     this.store = store;
     this.authHandler = authHandler;
+    this.replicator = null;
+    this.handleLoggedIn = this.handleLoggedIn.bind(this);
+    this.handleLoggedOut = this.handleLoggedOut.bind(this);
+    this.init = this.init.bind(this);
+    this.emitter = new EventEmitter();
   }
   async init() {
     await this.store.init();
+    if (this.authHandler) {
+      this.authHandler.emitter.on("isloggedin", this.handleLoggedIn);
+      this.authHandler.emitter.on("isloggedout", this.handleLoggedOut);
+    }
   }
-  async initReplication() {
-    const auth = this.getAuth();
-    await this.store.initReplication(auth);
+  async handleLoggedIn() {
+    this.runReplication();
   }
+  async runReplication() {
+    if (!this.authHandler.isLoggedIn()) {
+      return false;
+    }
+    const user = {
+      userId: this.authHandler.userId,
+      idToken: this.authHandler.idToken
+    };
+    await this.store.runReplication(user);
+  }
+  async handleLoggedOut(user) {}
   async getSelectables() {
     return [
       {
@@ -64,12 +85,13 @@ class AppDataFacade {
     let dateKey = this.makeDateKey(toCreate.when);
 
     let entry = this.store.addEntry(toCreate);
-
+    this.runReplication();
     return entry;
   }
 
   async deleteEntry(entryToDelete) {
-    return this.store.deleteEntry(entryToDelete);
+    await this.store.deleteEntry(entryToDelete);
+    this.runReplication();
   }
   async dump() {
     return this.store.dump();

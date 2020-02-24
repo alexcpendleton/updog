@@ -1,5 +1,4 @@
 import auth0 from "auth0-js";
-import GraphQLReplicator from "./GraphQLReplicator.js";
 import EventEmitter from "events";
 
 class AuthHandler {

@@ -1,8 +1,6 @@
 import { plugin, create, removeDatabase } from "rxdb";
 import idb from "pouchdb-adapter-idb";
 import GraphQLReplicator from "./GraphQLReplicator.js";
-import httpadapter from "pouchdb-adapter-http";
-import PouchDB from "pouchdb-browser";
 
 plugin(idb);
 
@@ -50,7 +48,6 @@ class RxDBStore {
     this.settings = {
       latestNumberOfDays: 30
     };
-    this.replicator = new GraphQLReplicator();
   }
   async init() {
     //await removeDatabase("updogrx", "idb");
@@ -60,21 +57,20 @@ class RxDBStore {
       name: "entries",
       schema: entrySchema
     });
+    this.replicator = new GraphQLReplicator(this.dbs.local);
+    this.replicationState = null;
   }
   rxRowToNice(rxrow) {
     var nice = {}; // rxrow.get();
     nice.selectables = rxrow.get("selectables");
     nice.id = rxrow.get("id");
     nice.note = rxrow.get("note");
-    nice.when = rxrow.get("when");
+    nice.when = new Date(rxrow.get("when"));
+    nice.isDeleted = rxrow.get("isDeleted");
     return nice;
   }
   async getLatestEntriesByDate() {
-    let everything = await this.dbs.local.entries
-      .find()
-      .where("isDeleted")
-      .eq(false)
-      .exec();
+    let everything = await this.dbs.local.entries.find().exec();
     // todo: have this query using a lib once performance is an issue
     let max = new Date();
     let min = new Date(max.getDate() - this.settings.latestNumberOfDays);
@@ -84,7 +80,7 @@ class RxDBStore {
         var doc = this.rxRowToNice(current);
         // Gets stored as a string for whatever reason
         doc.when = new Date(doc.when);
-        if (doc.when > min) {
+        if (doc.when > min && doc.isDeleted !== true) {
           accumulator.push(doc);
         }
         return accumulator;
@@ -167,12 +163,18 @@ class RxDBStore {
   //   let everything = await this.dbs.local.allDocs({ include_docs: true });
   //   return JSON.stringify(everything);
   // }
-  async initReplication(auth) {
-    if (!auth) {
+  async initReplication(user) {
+    if (!user) {
       console.log("No auth detected, no replication will occur.");
       return;
     }
-    await this.replicator.setupGraphQLReplication(auth);
+    //if (this.replicationState == null) {
+    let replicationState = await this.replicator.setupGraphQLReplication(user);
+    this.replicationState = replicationState;
+    //}
+  }
+  async runReplication(user) {
+    await this.initReplication(user);
   }
 }
 

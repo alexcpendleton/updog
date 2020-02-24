@@ -31,11 +31,18 @@ mutation insert_entries($objects: [entries_insert_input!]!) {
       output.note = doc.note;
       output.when = doc.when;
       output.user_id = userID;
-      if (doc.created_at) {
-        output.created_at = doc.created_at;
+      //handle some old migration issues
+      if (doc.createdAt) {
+        output.createdAt = doc.createdAt;
       }
-      if (doc.updated_at) {
-        output.updated_at = doc.updated_at;
+      if (doc.updatedAt) {
+        output.updatedAt = doc.updatedAt;
+      }
+      if (data.created_at) {
+        output.createdAt = data.created_at;
+      }
+      if (data.updated_at) {
+        output.updatedAt = data.updated_at;
       }
       return output;
     });

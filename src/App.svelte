@@ -13,8 +13,8 @@
   //import PouchDbStore from "./PouchDbStore.js";
   import RxDBStore from "./RxDBStore.js";
 
-  let auth = new AuthHandler();
-  let data = new AppDataFacade({ store: new RxDBStore() });
+  let authHandler = new AuthHandler();
+  let data = new AppDataFacade({ store: new RxDBStore(), authHandler });
 
   let ready = false;
   async function init() {
@@ -40,6 +40,6 @@
     {:else}
       <EntryAndHistoryScreen {data} />
     {/if}
-    <AuthPrompt {auth} />
+    <AuthPrompt auth={authHandler} />
   {/if}
 </div>

@@ -47,11 +47,15 @@ export class GraphQLReplicator {
       note: doc.note,
       selectables: doc.selectables,
       isDeleted: doc.isDeleted,
-      when: doc.when,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
       userId: auth.userId
     };
+    if (doc.when.toUTCString) {
+      insert_input.when = doc.when.toUTCString();
+    } else {
+      insert_input.when = doc.when;
+    }
     const variables = {
       objects: [insert_input]
     };

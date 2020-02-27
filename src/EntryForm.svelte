@@ -122,7 +122,8 @@
       name="note"
       bind:value={note}
       placeholder="enter a note, if you want"
-      class="note-textarea text-gray-800 px-2 text-sm" />
+      class="note-textarea text-gray-800 px-2 text-sm"
+      style="width:98%" />
   </label>
   <div>
     <button

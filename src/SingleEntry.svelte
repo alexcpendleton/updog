@@ -39,9 +39,9 @@
 </script>
 
 <div
-  class="single-entry text-xs flex flex-no-wrap items-stretch content-center
+  class="single-entry text-xs flex flex-no-wrap items-center content-center
   justify-between">
-  <div class="entry-details">
+  <div class="entry-details pl-1">
     <strong class="time inline">{time}</strong>
     {#if usedSelectables}
       <ul class="inline">
@@ -58,10 +58,7 @@
   </div>
   {#if canDelete}
     <div class="entry-controls flex-inital">
-      <button
-        type="button"
-        class="pointer h-full px-1"
-        on:click={triggerDelete}>
+      <button type="button" class="pointer p-2" on:click={triggerDelete}>
         <span class="" aria-hidden="true">🗑️</span>
         <span class="visually-hidden">Delete</span>
       </button>

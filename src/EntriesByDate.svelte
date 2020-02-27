@@ -21,12 +21,12 @@
     if (i % 2 == 0) {
       bg = "bg-gray-700";
     }
-    return `px-1 py-1 ${bg}`;
+    return `${bg}`;
   }
 </script>
 
 <div class="mb-2 text-xs">
-  <strong class="underline px-1">{headerText}</strong>
+  <strong class="underline block px-1 py-1">{headerText}</strong>
   <ol>
     {#each entries as entry, i (entry.id)}
       <li class={css(i)}>

@@ -7,7 +7,6 @@ export class GraphQLReplicator {
     this.db = db;
     this.replicationState = null;
     this.batchSize = 10;
-    //this.subscriptionClient = null;
     this.pushQueryBuilder = this.pushQueryBuilder.bind(this);
     this.pullQueryBuilder = this.pullQueryBuilder.bind(this);
   }
@@ -16,13 +15,7 @@ export class GraphQLReplicator {
     if (this.replicationState) {
       this.replicationState.cancel();
     }
-
-    // if(this.subscriptionClient) {
-    //     this.subscriptionClient.close()
-    // }
-
     this.replicationState = await this.setupGraphQLReplication(auth);
-    // this.subscriptionClient = this.setupGraphQLSubscription(auth, this.replicationState)
   }
 
   pushQueryBuilder(doc, auth) {
@@ -142,53 +135,6 @@ export class GraphQLReplicator {
     //replicationState.recieved$.subscribe(val => console.log("recieved", val));
     return replicationState;
   }
-
-  // setupGraphQLSubscription(auth, replicationState) {
-  //     const endpointUrl = 'wss://hasura1234567.herokuapp.com/v1/graphql';
-  //     const wsClient = new SubscriptionClient(endpointUrl, {
-  //         reconnect: true,
-  //         connectionParams: {
-  //             headers: {
-  //                 'Authorization': `Bearer ${auth.idToken}`
-  //             }
-  //         },
-  //         timeout: 1000 * 60,
-  //         onConnect: () => {
-  //             console.log('SubscriptionClient.onConnect()');
-  //         },
-  //         connectionCallback: () => {
-  //             console.log('SubscriptionClient.connectionCallback:');
-  //         },
-  //         reconnectionAttempts: 10000,
-  //         inactivityTimeout: 10 * 1000,
-  //         lazy: true
-  //     });
-
-  //     const query = `subscription onTodoChanged {
-  //         todos {
-  //             id
-  //             deleted
-  //             isCompleted
-  //             text
-  //         }
-  //     }`;
-
-  //     const ret = wsClient.request({ query });
-
-  //     ret.subscribe({
-  //         next(data) {
-  //             console.log('subscription emitted => trigger run');
-  //             console.dir(data);
-  //             replicationState.run();
-  //         },
-  //         error(error) {
-  //             console.log('got error:');
-  //             console.dir(error);
-  //         }
-  //     });
-
-  //     return wsClient
-  // }
 }
 
 export default GraphQLReplicator;

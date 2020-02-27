@@ -2,13 +2,10 @@
   import SelectableIcon from "./SelectableIcon.svelte";
   import EntryForm from "./EntryForm.svelte";
   import History from "./History.svelte";
-  import Export from "./Export.svelte";
-
   export let data;
   let defaultSelectables;
   let selectables = [];
   let latestEntriesByDate = [];
-  export let showDumpButton = true;
 
   let ready = false;
 
@@ -58,9 +55,6 @@
     <section id="history" class=" text-sm text-left ">
       <History {latestEntriesByDate} {defaultSelectables} {handleDelete} />
     </section>
-    {#if showDumpButton}
-      <Export {data} />
-    {/if}
     <section id="icon-attribution" class="text-xs">
       Icons made by
       <a href="https://www.flaticon.com/authors/freepik" title="Freepik">

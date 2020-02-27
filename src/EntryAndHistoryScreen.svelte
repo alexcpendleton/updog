@@ -47,7 +47,7 @@
   init();
 </script>
 
-<main class="mx-auto" style="width:280px">
+<main class="mx-auto " style="max-width:500px;">
   {#if ready}
     <section id="log-form">
       <EntryForm {selectables} {onEntryAdded} />

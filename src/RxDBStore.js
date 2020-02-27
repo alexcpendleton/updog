@@ -82,7 +82,6 @@ class RxDBStore {
         var doc = this.rxRowToNice(current);
         // Gets stored as a string for whatever reason
         doc.when = new Date(doc.when);
-        debugger;
         if (doc.isDeleted === undefined || doc.isDeleted !== true) {
           accumulator.push(doc);
         }

@@ -1,10 +1,10 @@
 import { plugin, create, removeDatabase } from "rxdb";
 import idb from "pouchdb-adapter-idb";
 import GraphQLReplicator from "./GraphQLReplicator.js";
-
-import PouchDB from "pouchdb-browser";
+import RxDBNoValidateModule from "rxdb/plugins/no-validate";
 
 plugin(idb);
+plugin(RxDBNoValidateModule);
 
 const entrySchema = {
   title: "entry schema",
@@ -82,7 +82,8 @@ class RxDBStore {
         var doc = this.rxRowToNice(current);
         // Gets stored as a string for whatever reason
         doc.when = new Date(doc.when);
-        if (doc.when > min && doc.isDeleted !== true) {
+        debugger;
+        if (doc.isDeleted === undefined || doc.isDeleted !== true) {
           accumulator.push(doc);
         }
         return accumulator;

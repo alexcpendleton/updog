@@ -3,7 +3,7 @@
   let isLoggedIn = false;
   let isSyncing = false;
 
-  let isReady = false;
+  let isReady = true;
 
   async function init() {
     await auth.init();
@@ -27,13 +27,14 @@
   init();
 </script>
 
-<div class="absolute bottom-0 right-0">
-  {#if isLoggedIn}
-    {#if isSyncing}
-      <div>Syncing...</div>
+{#if isReady}
+  <div>
+    {#if isLoggedIn}
+      <button type="button" class="" on:click={handleLogOutClick}>
+        Log out
+      </button>
+    {:else}
+      <button type="button" class="" on:click={handleLogInClick}>Log in</button>
     {/if}
-    <button type="button" class="" on:click={handleLogOutClick}>Log out</button>
-  {:else}
-    <button type="button" class="" on:click={handleLogInClick}>Log in</button>
-  {/if}
-</div>
+  </div>
+{/if}

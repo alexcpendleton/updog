@@ -67,7 +67,7 @@
     return `${corner} ${checked}`;
   }
   function inlineStyle(item, i) {
-    return "width: 50px; height: 50px; line-height: 42px;";
+    return "width: 50px; height: 50px; line-height: 42px; touch-action: manipulation";
   }
   function svgStyle(item, i) {
     if (item.checked) {

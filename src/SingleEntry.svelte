@@ -41,7 +41,7 @@
 <div
   class="single-entry text-xs flex flex-no-wrap items-center content-center
   justify-between">
-  <div class="entry-details pl-1">
+  <div class="entry-details pl-1 py-2">
     <strong class="time inline">{time}</strong>
     {#if usedSelectables}
       <ul class="inline">

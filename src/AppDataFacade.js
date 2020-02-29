@@ -61,6 +61,18 @@ class AppDataFacade {
         type: "checkbox"
       },
       {
+        key: "wash",
+        icon: "🛁",
+        humanDescription: "wash",
+        type: "checkbox"
+      },
+      {
+        key: "orange_diamond",
+        icon: "🔶",
+        humanDescription: "orange diamond",
+        type: "checkbox"
+      },
+      {
         key: "flag",
         icon: "🚩",
         humanDescription: "flag",

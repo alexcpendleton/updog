@@ -25,7 +25,16 @@
   }
   // entry.selectables will only have the keys, but we want the whole meta
   // so we can display the object. Look in our map for the ones with matching keys
-  export let usedSelectables = entry.selectables.map(getSelectableFromMap);
+  export let usedSelectables = entry.selectables.reduce(
+    (accumulator, currentSelectable) => {
+      const matching = getSelectableFromMap(currentSelectable);
+      if (matching) {
+        accumulator.push(matching);
+      }
+      return accumulator;
+    },
+    []
+  );
   export let note = entry.note;
   export let time = toTime();
 

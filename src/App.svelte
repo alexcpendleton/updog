@@ -40,6 +40,5 @@
     {:else}
       <EntryAndHistoryScreen {data} />
     {/if}
-    <AuthPrompt auth={authHandler} />
   {/if}
 </div>

@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "auth0-js": "^9.12.2",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "pouchdb-adapter-http": "^7.2.1",
     "pouchdb-adapter-idb": "^7.2.1",
     "pouchdb-browser": "^7.2.1",

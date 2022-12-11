@@ -30,7 +30,7 @@
     "pouchdb-adapter-http": "^7.2.1",
     "pouchdb-adapter-idb": "^7.2.1",
     "pouchdb-browser": "^7.2.1",
-    "rxdb": "^8.7.5",
+    "rxdb": "^13.15.2",
     "rxjs": "^6.5.4",
     "svelte-flatpickr": "^2.4.0"
   }
